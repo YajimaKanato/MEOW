@@ -1,13 +1,19 @@
+using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ConversationAsset", menuName = "Conversation/ConversationAsset")]
-public class ConversationAsset : ScriptableObject
+public abstract class ConversationAsset : ScriptableObject
 {
-    [SerializeField] ConversationType _conversationType;
-    [SerializeField, TextArea] string[] _texts;
-    [SerializeField] ConversationAsset _nextConversation;
+    [SerializeField] Talker[] _texts;
 
-    public ConversationType ConversationType => _conversationType;
-    public string[] Texts => _texts;
-    public ConversationAsset NextConversation => _nextConversation;
+    public Talker[] Texts => _texts;
+}
+
+[Serializable]
+public struct Talker
+{
+    [SerializeField] CharacterType _talkerType;
+    [SerializeField, TextArea] string _text;
+
+    public CharacterType TalkerType => _talkerType;
+    public string Text => _text;
 }
