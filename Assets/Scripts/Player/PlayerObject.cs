@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public partial class PlayerObject : MonoBehaviour
 {
+    //Playerの核ファイル
     [SerializeField] InputActionAsset _actionAsset;
     InputActionMap _playerMap;
     InputAction _move;
@@ -72,55 +73,5 @@ public partial class PlayerObject : MonoBehaviour
         _nextItem.started -= NextItem;
         _backItem.started -= BackItem;
         _menu.started -= Menu;
-    }
-
-    void Move(InputAction.CallbackContext ctx)
-    {
-
-    }
-
-    void Run(InputAction.CallbackContext ctx)
-    {
-
-    }
-
-    void Jump(InputAction.CallbackContext ctx)
-    {
-
-    }
-
-    void Down(InputAction.CallbackContext ctx)
-    {
-
-    }
-
-    void Interact(InputAction.CallbackContext ctx)
-    {
-
-    }
-
-    void UseItem(InputAction.CallbackContext ctx)
-    {
-
-    }
-
-    void SelectItem(InputAction.CallbackContext ctx)
-    {
-
-    }
-
-    void NextItem(InputAction.CallbackContext ctx)
-    {
-
-    }
-
-    void BackItem(InputAction.CallbackContext ctx)
-    {
-
-    }
-
-    void Menu(InputAction.CallbackContext ctx)
-    {
-
     }
 }
