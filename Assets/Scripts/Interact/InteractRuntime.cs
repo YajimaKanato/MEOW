@@ -1,13 +1,14 @@
+using MVPTools.Runtime;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractRuntime
+public class InteractRuntime : IRuntime
 {
     float _textSpeed;
     readonly Dictionary<CharacterType, TalkerData> _characterData = new();
     readonly Dictionary<CharacterType, ConversationAsset> _conversationData = new();
 
-    public InteractRuntime(InteractDefinition definition)
+    public InteractRuntime(InteractModel definition)
     {
         _textSpeed = definition.TextSpeed;
         foreach (var talker in definition.Talkers)
@@ -15,5 +16,10 @@ public class InteractRuntime
             _characterData.Add(talker.CharacterType, talker.TalkerData);
             _conversationData.Add(talker.CharacterType, talker.Conversation);
         }
+    }
+
+    public void Dispose()
+    {
+
     }
 }
