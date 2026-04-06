@@ -8,6 +8,8 @@ public partial class PlayerView : ViewBase
     //Playerの核ファイル
     [SerializeField] InputActionAsset _actionAsset;
     [SerializeField] PlayerModel _model;
+    [SerializeField] LayerMask _groundLayer;
+    [SerializeField] Vector3 _groundLineOffsetY = new Vector2(0, -0.5f);
     InputActionMap _playerMap;
     InputAction _move;
     InputAction _run;
@@ -22,10 +24,20 @@ public partial class PlayerView : ViewBase
     PlayerPresenter _presenter;
     Rigidbody2D _rb2d;
     Animator _animator;
+    Vector2 _groundLineStart;
+    Vector2 _groundLineEnd;
     bool _subscribed;
     bool _running;
+    bool _isGround;
+    bool _isFalling;
     float _walkSpeed;
     float _runSpeed;
+    float _jumpPower;
+
+    private void Awake()
+    {
+        Initialize();
+    }
 
     [ContextMenu("Initialize")]
     public override void Initialize()
@@ -36,7 +48,9 @@ public partial class PlayerView : ViewBase
         _animator = GetComponent<Animator>();
         _walkSpeed = _model.WalkSpeed;
         _runSpeed = _model.RunSpeed;
+        _jumpPower = _model.JumpPower;
         _running = false;
+        _isGround = false;
 
         //初期化処理
         _presenter?.Subscribe();
@@ -84,10 +98,7 @@ public partial class PlayerView : ViewBase
         if (_subscribed) return;
         if (_playerMap == null) return;
         _subscribed = true;
-        _run.started += Run;
-        _run.canceled += Run;
         _jump.started += Jump;
-        _down.started += Down;
         _interact.started += Interact;
         _useItem.started += UseItem;
         _selectItem.started += SelectItem;
@@ -101,10 +112,7 @@ public partial class PlayerView : ViewBase
         if (!_subscribed) return;
         if (_playerMap == null) return;
         _subscribed = false;
-        _run.started -= Run;
-        _run.canceled -= Run;
         _jump.started -= Jump;
-        _down.started -= Down;
         _interact.started -= Interact;
         _useItem.started -= UseItem;
         _selectItem.started -= SelectItem;
@@ -116,6 +124,15 @@ public partial class PlayerView : ViewBase
     private void Update()
     {
         if (!_rb2d) return;
+        var line = transform.position + _groundLineOffsetY;
+        _groundLineStart = line + Vector3.left / 2;
+        _groundLineEnd = line + Vector3.right / 2;
+#if UNITY_EDITOR
+        Debug.DrawLine(_groundLineStart, _groundLineEnd, Color.red);
+#endif
+        _isGround = Physics2D.Linecast(_groundLineStart, _groundLineEnd, _groundLayer);
+        Run();
+        Down();
     }
 
     private void FixedUpdate()

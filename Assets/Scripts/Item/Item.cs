@@ -22,4 +22,5 @@ public enum ItemLabel
     [InspectorName("倉庫のキー")] StorageKey,
     [InspectorName("メモリーカード")] MemoryCard,
     [InspectorName("アンドロイドの内蔵カード")] AndroidCard,
+    None
 }

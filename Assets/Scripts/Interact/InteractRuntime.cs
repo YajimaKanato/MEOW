@@ -22,4 +22,9 @@ public class InteractRuntime : IRuntime
     {
 
     }
+
+    public void Initialize()
+    {
+        throw new System.NotImplementedException();
+    }
 }

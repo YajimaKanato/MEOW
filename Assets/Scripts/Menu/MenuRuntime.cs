@@ -11,4 +11,9 @@ public class MenuRuntime : IRuntime
     {
 
     }
+
+    public void Initialize()
+    {
+        throw new System.NotImplementedException();
+    }
 }
