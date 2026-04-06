@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d8a807727c000d4b95f38187390126a, type: 3}
+  m_Name: Chocolate
+  m_EditorClassIdentifier: Assembly-CSharp::BadFood
+  _itemType: 1
+  _itemLabel: 5
+  _itemName: "\u30C1\u30E7\u30B3"
+  _itemInfo: "\u304A\u3044\u3057\u305D\u3046\u306A\u30C1\u30E7\u30B3\u30EC\u30FC\u30C8\r\n\u7518\u3044\u8A98\u60D1\u3068\u5371\u967A\u306A\u9999\u308A"
+  _saturate: 0
+  _damage: 0

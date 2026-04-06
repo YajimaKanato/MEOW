@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aadb0b1e3d8a7d46a8a3061368613fc, type: 3}
+  m_Name: Cheese
+  m_EditorClassIdentifier: Assembly-CSharp::GoodFood
+  _itemType: 0
+  _itemLabel: 1
+  _itemName: "\u30C1\u30FC\u30BA"
+  _itemInfo: "\u304A\u3044\u3057\u305D\u3046\u306A\u30C1\u30FC\u30BA\r\n\u4F38\u3073\u308B\u304B\u3001\u88C2\u3051\u308B\u304B"
+  _saturate: 0

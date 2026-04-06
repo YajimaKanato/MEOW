@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 228cd21606c3eea43b240f2c2b36308e, type: 3}
+  m_Name: DogCollar
+  m_EditorClassIdentifier: Assembly-CSharp::KeyItem
+  _itemType: 2
+  _itemLabel: 7
+  _itemName: "\u72AC\u306E\u9996\u8F2A"
+  _itemInfo: "\u5E74\u5B63\u304C\u5165\u3063\u305F\u9996\u8F2A\r\n\u3068\u3066\u3082\u5927\u4E8B\u306B\u3055\u308C\u3066\u3044\u308B\u3088\u3046\u3060"

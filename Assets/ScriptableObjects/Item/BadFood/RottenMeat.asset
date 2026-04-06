@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d8a807727c000d4b95f38187390126a, type: 3}
+  m_Name: RottenMeat
+  m_EditorClassIdentifier: Assembly-CSharp::BadFood
+  _itemType: 1
+  _itemLabel: 3
+  _itemName: "\u8150\u3063\u305F\u8089"
+  _itemInfo: "\u98DF\u3079\u308B\u306B\u306F\u52C7\u6C17\u304C\u3044\u308B\u8089\r\n\u767A\u9175\u306B\u3082\u9650\u5EA6\u306F\u3042\u308B"
+  _saturate: 0
+  _damage: 0

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d8a807727c000d4b95f38187390126a, type: 3}
+  m_Name: Alcohol
+  m_EditorClassIdentifier: Assembly-CSharp::BadFood
+  _itemType: 1
+  _itemLabel: 6
+  _itemName: "\u304A\u9152"
+  _itemInfo: "\u4E2D\u8EAB\u306E\u5165\u3063\u305F\u9152\u74F6\r\n\u9152\u3092\u98F2\u3093\u3067\u3082\u98F2\u307E\u308C\uFF52......"
+  _saturate: 0
+  _damage: 0
