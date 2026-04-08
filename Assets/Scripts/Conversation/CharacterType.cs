@@ -6,5 +6,6 @@ public enum CharacterType
     Dog,
     Cat,
     Mouse,
-    Android
+    Android,
+    None
 }
