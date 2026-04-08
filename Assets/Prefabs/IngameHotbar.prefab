@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 8909186920420658217}
   - component: {fileID: 6927726569606114402}
   - component: {fileID: 2881239163350084754}
-  - component: {fileID: 3305038879758203388}
   - component: {fileID: 6338598152969184316}
+  - component: {fileID: 8038175332285356653}
   m_Layer: 0
-  m_Name: HotbarBase
+  m_Name: IngameHotbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,26 +85,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 2
   m_VerticalFit: 0
---- !u!114 &3305038879758203388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4672403818087466190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53d7fcda43cd837459532a9db62ccd24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Hotbar
-  _hotbar:
-  - {fileID: 6269999613567999057}
-  - {fileID: 2756192609632088644}
-  - {fileID: 3706955206862746753}
-  - {fileID: 4290527464574772012}
-  - {fileID: 2398852119160504298}
-  - {fileID: 2393951754758654931}
-  _canvasGroup: {fileID: 6338598152969184316}
 --- !u!225 &6338598152969184316
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -117,6 +97,26 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &8038175332285356653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4672403818087466190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53d7fcda43cd837459532a9db62ccd24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hotbar
+  _hotbar:
+  - {fileID: 4248769217599718685}
+  - {fileID: 5461420392541760264}
+  - {fileID: 6810826255340760525}
+  - {fileID: 6232464586174544480}
+  - {fileID: 5530214944062760614}
+  - {fileID: 5533846515014685343}
+  _canvasGroup: {fileID: 6338598152969184316}
 --- !u!1001 &2362932169001347673
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -214,22 +214,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6098c535b1aafd49b760d758466188e, type: 3}
---- !u!114 &2756192609632088644 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 501347454458157085, guid: d6098c535b1aafd49b760d758466188e, type: 3}
-  m_PrefabInstance: {fileID: 2362932169001347673}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd283e957c8636c4fa039485547d38d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HotbarElement
 --- !u!224 &4222194811243710036 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1896839554351426573, guid: d6098c535b1aafd49b760d758466188e, type: 3}
   m_PrefabInstance: {fileID: 2362932169001347673}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5461420392541760264 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7710178644885078353, guid: d6098c535b1aafd49b760d758466188e, type: 3}
+  m_PrefabInstance: {fileID: 2362932169001347673}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36b69854471afff42bd31567401d7cdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngameHotbarElement
 --- !u!1001 &2864090971678140407
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -327,22 +327,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6098c535b1aafd49b760d758466188e, type: 3}
---- !u!114 &2398852119160504298 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 501347454458157085, guid: d6098c535b1aafd49b760d758466188e, type: 3}
-  m_PrefabInstance: {fileID: 2864090971678140407}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd283e957c8636c4fa039485547d38d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HotbarElement
 --- !u!224 &4462405420056677370 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1896839554351426573, guid: d6098c535b1aafd49b760d758466188e, type: 3}
   m_PrefabInstance: {fileID: 2864090971678140407}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5530214944062760614 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7710178644885078353, guid: d6098c535b1aafd49b760d758466188e, type: 3}
+  m_PrefabInstance: {fileID: 2864090971678140407}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36b69854471afff42bd31567401d7cdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngameHotbarElement
 --- !u!1001 &2867705225321796558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -440,22 +440,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6098c535b1aafd49b760d758466188e, type: 3}
---- !u!114 &2393951754758654931 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 501347454458157085, guid: d6098c535b1aafd49b760d758466188e, type: 3}
-  m_PrefabInstance: {fileID: 2867705225321796558}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd283e957c8636c4fa039485547d38d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HotbarElement
 --- !u!224 &4440214101436710851 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1896839554351426573, guid: d6098c535b1aafd49b760d758466188e, type: 3}
   m_PrefabInstance: {fileID: 2867705225321796558}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5533846515014685343 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7710178644885078353, guid: d6098c535b1aafd49b760d758466188e, type: 3}
+  m_PrefabInstance: {fileID: 2867705225321796558}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36b69854471afff42bd31567401d7cdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngameHotbarElement
 --- !u!1001 &3856458712664304796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -558,17 +558,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1896839554351426573, guid: d6098c535b1aafd49b760d758466188e, type: 3}
   m_PrefabInstance: {fileID: 3856458712664304796}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3706955206862746753 stripped
+--- !u!114 &6810826255340760525 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 501347454458157085, guid: d6098c535b1aafd49b760d758466188e, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7710178644885078353, guid: d6098c535b1aafd49b760d758466188e, type: 3}
   m_PrefabInstance: {fileID: 3856458712664304796}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd283e957c8636c4fa039485547d38d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 36b69854471afff42bd31567401d7cdf, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HotbarElement
+  m_EditorClassIdentifier: Assembly-CSharp::IngameHotbarElement
 --- !u!1001 &4431022126284094257
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -671,17 +671,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1896839554351426573, guid: d6098c535b1aafd49b760d758466188e, type: 3}
   m_PrefabInstance: {fileID: 4431022126284094257}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4290527464574772012 stripped
+--- !u!114 &6232464586174544480 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 501347454458157085, guid: d6098c535b1aafd49b760d758466188e, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7710178644885078353, guid: d6098c535b1aafd49b760d758466188e, type: 3}
   m_PrefabInstance: {fileID: 4431022126284094257}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd283e957c8636c4fa039485547d38d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 36b69854471afff42bd31567401d7cdf, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HotbarElement
+  m_EditorClassIdentifier: Assembly-CSharp::IngameHotbarElement
 --- !u!1001 &5906092366712325196
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -779,19 +779,19 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6098c535b1aafd49b760d758466188e, type: 3}
---- !u!224 &5450563024975702081 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1896839554351426573, guid: d6098c535b1aafd49b760d758466188e, type: 3}
-  m_PrefabInstance: {fileID: 5906092366712325196}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6269999613567999057 stripped
+--- !u!114 &4248769217599718685 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 501347454458157085, guid: d6098c535b1aafd49b760d758466188e, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7710178644885078353, guid: d6098c535b1aafd49b760d758466188e, type: 3}
   m_PrefabInstance: {fileID: 5906092366712325196}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd283e957c8636c4fa039485547d38d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 36b69854471afff42bd31567401d7cdf, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HotbarElement
+  m_EditorClassIdentifier: Assembly-CSharp::IngameHotbarElement
+--- !u!224 &5450563024975702081 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1896839554351426573, guid: d6098c535b1aafd49b760d758466188e, type: 3}
+  m_PrefabInstance: {fileID: 5906092366712325196}
+  m_PrefabAsset: {fileID: 0}

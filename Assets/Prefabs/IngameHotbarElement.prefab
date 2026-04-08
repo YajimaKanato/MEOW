@@ -86,9 +86,9 @@ GameObject:
   - component: {fileID: 1896839554351426573}
   - component: {fileID: 4582036587589516676}
   - component: {fileID: 7074665991974075888}
-  - component: {fileID: 501347454458157085}
+  - component: {fileID: 7710178644885078353}
   m_Layer: 5
-  m_Name: Frame
+  m_Name: IngameHotbarElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &501347454458157085
+--- !u!114 &7710178644885078353
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -161,10 +161,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7868185380814147665}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd283e957c8636c4fa039485547d38d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 36b69854471afff42bd31567401d7cdf, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HotbarElement
+  m_EditorClassIdentifier: Assembly-CSharp::IngameHotbarElement
   _item: {fileID: 6962578150405700997}
   _frame: {fileID: 7074665991974075888}
-  _select: {fileID: 0}
-  _unselect: {fileID: 0}
