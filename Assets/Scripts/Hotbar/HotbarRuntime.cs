@@ -2,7 +2,6 @@ using MVPTools.Runtime;
 
 public class HotbarRuntime : IRuntime
 {
-    HotbarModel _model;
     ItemLabel[] _hotbar;
     int _currentIndex = 0;
     int _indexForInteract = 0;
@@ -11,7 +10,13 @@ public class HotbarRuntime : IRuntime
 
     public HotbarRuntime(HotbarModel model)
     {
-        _model = model;
+        var hotbar = model.Hotbar;
+        _hotbar = new ItemLabel[hotbar.Length];
+        for (int i = 0; i < hotbar.Length; i++)
+        {
+            var item = hotbar[i];
+            _hotbar[i] = item == null ? ItemLabel.None : item.ItemLabel;
+        }
     }
 
     public void Dispose()
@@ -21,15 +26,7 @@ public class HotbarRuntime : IRuntime
 
     public void Initialize()
     {
-        var hotbar = _model.Hotbar;
-        _hotbar = new ItemLabel[hotbar.Length];
-        for (int i = 0; i < hotbar.Length; i++)
-        {
-            var item = hotbar[i];
-            _hotbar[i] = item == null ? ItemLabel.None : item.ItemLabel;
-        }
-
-        _model = null;
+        
     }
 
     public int SelectIndex(int index)
@@ -43,20 +40,10 @@ public class HotbarRuntime : IRuntime
     /// ホットバーの次の要素を選択するメソッド
     /// </summary>
     /// <returns>選択したインデックス</returns>
-    public int PostIndex()
+    public int MoveIndex(SlotMove move)
     {
-        _currentIndex++;
+        _currentIndex += (int)move;
         if (_currentIndex > _hotbar.Length - 1) _currentIndex = 0;
-        return _currentIndex;
-    }
-
-    /// <summary>
-    /// ホットバーの前の要素を選択するメソッド
-    /// </summary>
-    /// <returns>選択したインデックス</returns>
-    public int PreIndex()
-    {
-        _currentIndex--;
         if (_currentIndex < 0) _currentIndex = _hotbar.Length - 1;
         return _currentIndex;
     }
@@ -118,20 +105,10 @@ public class HotbarRuntime : IRuntime
     /// ホットバーの次の要素を選択するメソッド
     /// </summary>
     /// <returns>選択したインデックス</returns>
-    public int PostInteractIndex()
+    public int MoveInteractIndex(SlotMove move)
     {
-        _indexForInteract++;
+        _indexForInteract += (int)move;
         if (_indexForInteract > _hotbar.Length - 1) _indexForInteract = 0;
-        return _indexForInteract;
-    }
-
-    /// <summary>
-    /// ホットバーの前の要素を選択するメソッド
-    /// </summary>
-    /// <returns>選択したインデックス</returns>
-    public int PreInteractIndex()
-    {
-        _indexForInteract--;
         if (_indexForInteract < 0) _indexForInteract = _hotbar.Length - 1;
         return _indexForInteract;
     }

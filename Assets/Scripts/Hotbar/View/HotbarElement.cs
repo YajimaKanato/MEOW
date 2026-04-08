@@ -1,13 +1,10 @@
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HotbarElement : MonoBehaviour
+public abstract class HotbarElement : MonoBehaviour
 {
-    [SerializeField] Image _item;
-    [SerializeField] Image _frame;
-    [SerializeField] Sprite _select;
-    [SerializeField] Sprite _unselect;
+    [SerializeField] protected Image _item;
+    [SerializeField] protected Image _frame;
 
     public void GetItem(Sprite sprite)
     {
@@ -21,17 +18,7 @@ public class HotbarElement : MonoBehaviour
         _item.sprite = null;
     }
 
-    public void Select()
-    {
-        if (!_frame) return;
-        _frame.sprite = _select;
-        transform.DOScale(1.1f, 0.2f);
-    }
+    public abstract void Select();
 
-    public void Unselect()
-    {
-        if (!_frame) return;
-        _frame.sprite = _unselect;
-        transform.DOScale(1, 0.2f);
-    }
+    public abstract void Unselect();
 }

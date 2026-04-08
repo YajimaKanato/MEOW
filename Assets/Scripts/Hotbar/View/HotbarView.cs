@@ -7,6 +7,11 @@ public partial class HotbarView : ViewBase
     [SerializeField] HotbarModel _model;
     HotbarPresenter _presenter;
 
+    private void Awake()
+    {
+        Initialize();
+    }
+
     public override void Initialize()
     {
         _presenter = new HotbarPresenter(this, _model);

@@ -11,6 +11,7 @@ public class HotbarPresenter : ISubscribable
     {
         _view = view;
         _runtime = model.CreateRuntime();
+        _view?.OpenIngameHotbar(_runtime.Hotbar);
     }
 
     public void Dispose()
@@ -24,7 +25,10 @@ public class HotbarPresenter : ISubscribable
     {
         if (_subscribed) return;
         _subscribed = true;
-        //EventBus.Subscribe<>(this,);
+        EventBus.Subscribe<SelectIngameHotbarToken>(this, SelectIngameSlot);
+        EventBus.Subscribe<SelectInteractHotbarToken>(this, SelectInteractSlot);
+        EventBus.Subscribe<MoveIngameHotbarToken>(this, MoveIngameIndex);
+        EventBus.Subscribe<MoveInteractHotbarToken>(this, MoveInteractIndex);
     }
 
     public void Unsubscribe()
@@ -34,45 +38,31 @@ public class HotbarPresenter : ISubscribable
         EventBus.Unsubscribe(this);
     }
 
-    public void SelectIngameSlot()
+    public void SelectIngameSlot(SelectIngameHotbarToken token)
     {
         if (_runtime == null) return;
-        var index = _runtime.SelectIndex(0);
+        var index = _runtime.SelectIndex(token.Index);
         _view?.ChangeIngameSlot(index);
     }
 
-    public void SelectInteractSlot()
+    public void SelectInteractSlot(SelectInteractHotbarToken token)
     {
         if (_runtime == null) return;
-        var index = _runtime.SelectInteractIndex(0);
+        var index = _runtime.SelectInteractIndex(token.Index);
         _view?.ChangeInteractSlot(index);
     }
 
-    public void PostIndex()
+    public void MoveIngameIndex(MoveIngameHotbarToken token)
     {
         if (_runtime == null) return;
-        var index = _runtime.PostIndex();
+        var index = _runtime.MoveIndex(token.Move);
         _view?.ChangeIngameSlot(index);
     }
 
-    public void PreIndex()
+    public void MoveInteractIndex(MoveInteractHotbarToken token)
     {
         if (_runtime == null) return;
-        var index = _runtime.PreIndex();
-        _view?.ChangeIngameSlot(index);
-    }
-
-    public void PostInteractIndex()
-    {
-        if (_runtime == null) return;
-        var index = _runtime.PostInteractIndex();
-        _view?.ChangeInteractSlot(index);
-    }
-
-    public void PreInteractIndex()
-    {
-        if (_runtime == null) return;
-        var index = _runtime.PreInteractIndex();
+        var index = _runtime.MoveInteractIndex(token.Move);
         _view?.ChangeInteractSlot(index);
     }
 
@@ -87,6 +77,11 @@ public class HotbarPresenter : ISubscribable
         if (_runtime == null) return;
         _runtime?.OpenInteractHotbar();
         _view?.OpenInteractHotbar(_runtime.Hotbar);
+    }
+
+    public void CloseInteractHotbar()
+    {
+
     }
 
     public void GetItem()

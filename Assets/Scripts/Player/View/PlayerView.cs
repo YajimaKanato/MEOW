@@ -27,12 +27,6 @@ public partial class PlayerView : ViewBase
     Vector2 _groundLineStart;
     Vector2 _groundLineEnd;
     bool _subscribed;
-    bool _running;
-    bool _isGround;
-    bool _isFalling;
-    float _walkSpeed;
-    float _runSpeed;
-    float _jumpPower;
 
     private void Awake()
     {
@@ -46,11 +40,6 @@ public partial class PlayerView : ViewBase
         _presenter = new PlayerPresenter(this, _model);
         _rb2d = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
-        _walkSpeed = _model.WalkSpeed;
-        _runSpeed = _model.RunSpeed;
-        _jumpPower = _model.JumpPower;
-        _running = false;
-        _isGround = false;
 
         //初期化処理
         _presenter?.Subscribe();
@@ -130,7 +119,7 @@ public partial class PlayerView : ViewBase
 #if UNITY_EDITOR
         Debug.DrawLine(_groundLineStart, _groundLineEnd, Color.red);
 #endif
-        _isGround = Physics2D.Linecast(_groundLineStart, _groundLineEnd, _groundLayer);
+        _presenter?.Ground(Physics2D.Linecast(_groundLineStart, _groundLineEnd, _groundLayer));
         Run();
         Down();
     }
