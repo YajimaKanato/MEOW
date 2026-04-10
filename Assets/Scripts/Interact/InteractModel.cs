@@ -5,6 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "InteractModel", menuName = "Model/InteractModel")]
 public class InteractModel : ScriptableObject, IModel<InteractRuntime>
 {
+    [SerializeField] Interactables _interactables;
+    [SerializeField] TextSpeed _textSpeed = TextSpeed.Normal;
+
+    public Interactables Interactables => _interactables;
+    public TextSpeed TextSpeed => _textSpeed;
+
     public InteractRuntime CreateRuntime()
     {
         return new InteractRuntime(this);

@@ -6,6 +6,7 @@ using UnityEngine.InputSystem.Controls;
 public partial class PlayerView
 {
     //PlayerのActionMethodファイル
+    #region Ingame
     void Move()
     {
         _presenter?.Move(_move.ReadValue<Vector2>());
@@ -77,4 +78,37 @@ public partial class PlayerView
     {
         _presenter?.RemoveInteractor(interactor);
     }
+    #endregion
+
+    #region Interact
+    void Enter(InputAction.CallbackContext ctx)
+    {
+        _presenter?.PushEnter();
+    }
+
+    void Cancel(InputAction.CallbackContext ctx)
+    {
+
+    }
+
+    void SelectItemOnInteract(InputAction.CallbackContext ctx)
+    {
+
+    }
+
+    void NextItemOnInteract(InputAction.CallbackContext ctx)
+    {
+
+    }
+
+    void BackItemOnInteract(InputAction.CallbackContext ctx)
+    {
+
+    }
+
+    void MenuOnInteract(InputAction.CallbackContext ctx)
+    {
+
+    }
+    #endregion
 }

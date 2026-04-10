@@ -87,6 +87,11 @@ public class PlayerPresenter : ISubscribable
         //ActionMap切り替え
     }
 
+    public void PushEnter()
+    {
+        EventBus.Publish(new PushEnterOnInteractToken());
+    }
+
     public void RegisterInteractor(InteractableView interactor)
     {
         if (interactor == null) return;
