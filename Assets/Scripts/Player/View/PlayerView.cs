@@ -123,6 +123,7 @@ public partial class PlayerView : ViewBase
         _presenter?.Ground(Physics2D.Linecast(_groundLineStart, _groundLineEnd, _groundLayer));
         Run();
         Down();
+        _presenter?.CalculateNearestInteractor();
     }
 
     private void FixedUpdate()

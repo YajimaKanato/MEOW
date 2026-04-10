@@ -101,39 +101,33 @@ public class PlayerPresenter : ISubscribable
         interactor.Unselected();
     }
 
-    public IEnumerator CalculateNearestInteractor()
+    public void CalculateNearestInteractor()
     {
-        var wait = new WaitForSeconds(0.1f);
-        while (_interactorList != null && _interactorList.Count > 0)
+        if (_interactorList == null || _interactorList.Count <= 1) return;
+
+        InteractableView nearestInteractor = null;
+        var minDistance = float.MaxValue;
+        for (int i = 0; i < _interactorList.Count; i++)
         {
-            if (_interactorList.Count <= 1)
+            var target = _interactorList[i];
+            if (target == null) continue;
+            var distance = Vector3.SqrMagnitude(_view.transform.position - target.transform.position);
+            if (distance < minDistance)
             {
-                yield return wait;
-                continue;
+                minDistance = distance;
+                nearestInteractor = target;
             }
+        }
 
-            InteractableView nearestInteractor = null;
-            var minDistance = float.MaxValue;
-            for (int i = 0; i < _interactorList.Count; i++)
-            {
-                var target = _interactorList[i];
-                if (target == null) continue;
-                var distance = Vector3.SqrMagnitude(_view.transform.position - target.transform.position);
-                if (distance < minDistance)
-                {
-                    minDistance = distance;
-                    nearestInteractor = target;
-                }
-            }
-
-            if (nearestInteractor != null)
-            {
-                //一番近いキャラクターに選択可能表示などを出す
-                _nearestInteractor?.Unselected();
-                _nearestInteractor = nearestInteractor;
-                _nearestInteractor?.Selected();
-            }
-            yield return wait;
+        if (_nearestInteractor != nearestInteractor)
+        {
+            //一番近いキャラクターに選択可能表示などを出す
+#if UNITY_EDITOR
+            Debug.Log("対象切り替え");
+#endif
+            _nearestInteractor?.Unselected();
+            _nearestInteractor = nearestInteractor;
+            _nearestInteractor?.Selected();
         }
     }
 }

@@ -70,10 +70,7 @@ public partial class PlayerView
 
     void RegisterInteractor(InteractableView interactor)
     {
-        if (_presenter == null) return;
-        if (_calculateNearestInteractorCoroutine == null)
-            _calculateNearestInteractorCoroutine = StartCoroutine(_presenter.CalculateNearestInteractor());
-        _presenter.RegisterInteractor(interactor);
+        _presenter?.RegisterInteractor(interactor);
     }
 
     void RemoveInteractor(InteractableView interactor)
