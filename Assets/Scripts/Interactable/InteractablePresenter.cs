@@ -34,7 +34,7 @@ public class InteractablePresenter : ISubscribable
         EventBus.Unsubscribe(this);
     }
 
-    public void GetCharacterType()
+    public void Interact()
     {
         if (_runtime == null) return;
         var character = _runtime.CharacterType;

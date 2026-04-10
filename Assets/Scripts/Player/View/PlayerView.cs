@@ -24,6 +24,7 @@ public partial class PlayerView : ViewBase
     PlayerPresenter _presenter;
     Rigidbody2D _rb2d;
     Animator _animator;
+    Coroutine _calculateNearestInteractorCoroutine;
     Vector2 _groundLineStart;
     Vector2 _groundLineEnd;
     bool _subscribed;
@@ -128,5 +129,17 @@ public partial class PlayerView : ViewBase
     {
         if (!_rb2d) return;
         Move();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!collision.TryGetComponent<InteractableView>(out var interactor)) return;
+        RegisterInteractor(interactor);
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (!collision.TryGetComponent<InteractableView>(out var interactor)) return;
+        RemoveInteractor(interactor);
     }
 }

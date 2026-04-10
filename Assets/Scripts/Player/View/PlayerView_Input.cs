@@ -28,7 +28,7 @@ public partial class PlayerView
 
     void Interact(InputAction.CallbackContext ctx)
     {
-
+        _presenter?.Interact();
     }
 
     void UseItem(InputAction.CallbackContext ctx)
@@ -66,5 +66,18 @@ public partial class PlayerView
     void Menu(InputAction.CallbackContext ctx)
     {
 
+    }
+
+    void RegisterInteractor(InteractableView interactor)
+    {
+        if (_presenter == null) return;
+        if (_calculateNearestInteractorCoroutine == null)
+            _calculateNearestInteractorCoroutine = StartCoroutine(_presenter.CalculateNearestInteractor());
+        _presenter.RegisterInteractor(interactor);
+    }
+
+    void RemoveInteractor(InteractableView interactor)
+    {
+        _presenter?.RemoveInteractor(interactor);
     }
 }
