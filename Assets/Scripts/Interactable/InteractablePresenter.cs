@@ -38,6 +38,6 @@ public class InteractablePresenter : ISubscribable
     {
         if (_runtime == null) return;
         var character = _runtime.CharacterType;
-        //EventBus.Publish(new);
+        EventBus.Publish(new StartInteractToken(character));
     }
 }

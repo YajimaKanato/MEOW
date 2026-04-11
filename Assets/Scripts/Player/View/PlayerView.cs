@@ -38,11 +38,6 @@ public partial class PlayerView : ViewBase
     Vector2 _groundLineEnd;
     bool _subscribed;
 
-    private void Awake()
-    {
-        Initialize();
-    }
-
     [ContextMenu("Initialize")]
     public override void Initialize()
     {

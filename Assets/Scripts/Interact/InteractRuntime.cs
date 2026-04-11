@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class InteractRuntime : IRuntime
 {
+    CharacterType _currentTalker;
     TextSpeed _currentTextSpeed;
     Dictionary<CharacterType, string> _storyDict = new();
 
@@ -30,9 +31,15 @@ public class InteractRuntime : IRuntime
         _currentTextSpeed = textSpeed;
     }
 
-    public string GetText(CharacterType characterType)
+    public void SetTalker(CharacterType characterType)
     {
-        if (!_storyDict.TryGetValue(characterType, out var story)) return "これはテストです";
+        if (characterType == CharacterType.None) return;
+        _currentTalker = characterType;
+    }
+
+    public string GetText()
+    {
+        if (!_storyDict.TryGetValue(_currentTalker, out var story)) return "これはテストです";
         return story;
     }
 }

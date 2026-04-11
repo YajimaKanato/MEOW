@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53d4ddbcf1ce76246a011928a4df4682, type: 3}
   m_Name: InteractModel
   m_EditorClassIdentifier: Assembly-CSharp::InteractModel
-  _textSpeed: 0
-  _talkers: []
+  _interactables: {fileID: 11400000, guid: 6f284e8dda243b344854cb301b3650bd, type: 2}
+  _textSpeed: 10

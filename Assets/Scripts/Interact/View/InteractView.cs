@@ -16,6 +16,7 @@ public partial class InteractView : ViewBase
             _spriteDict[character.CharacterType] = character.TalkingSprite;
             _nameDict[character.CharacterType] = character.CharacterName;
         }
+        CloseInteractWindow();
     }
 
     private void OnEnable()

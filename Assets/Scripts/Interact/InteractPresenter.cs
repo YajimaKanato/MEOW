@@ -27,8 +27,8 @@ public class InteractPresenter : ISubscribable
     {
         if (_subscribed) return;
         _subscribed = true;
-        EventBus.Subscribe<StartStreamTextToken>(this, StartStreamText);
         EventBus.Subscribe<PushEnterOnInteractToken>(this, PushEnter);
+        EventBus.Subscribe<StartInteractToken>(this, StartInteract);
     }
 
     public void Unsubscribe()
@@ -38,11 +38,18 @@ public class InteractPresenter : ISubscribable
         EventBus.Unsubscribe(this);
     }
 
-    void StartStreamText(StartStreamTextToken token)
+    void StartInteract(StartInteractToken token)
+    {
+        _runtime?.SetTalker(token.CharacterType);
+        _view?.OpenInteractWindow();
+        _view?.StartStreamText(StreamText(_runtime.GetText()));
+    }
+
+    void StartStreamText()
     {
         if (_runtime == null) return;
         if (_runningStreamingText) return;
-        _view?.StartStreamText(StreamText(_runtime.GetText(token.CharacterType)));
+        _view?.StartStreamText(StreamText(_runtime.GetText()));
     }
 
     IEnumerator StreamText(string text)
@@ -62,13 +69,27 @@ public class InteractPresenter : ISubscribable
 
     void PushEnter(PushEnterOnInteractToken token)
     {
-        if (_runningStreamingText)
+        if (!_runningStreamingText)
         {
-            _runningStreamingText = false;
+            if (true)
+            {
+                FinishInteract();
+            }
+            else
+            {
+                //次の会話
+                StartStreamText();
+            }
         }
         else
         {
-            //次の会話
+            _runningStreamingText = false;
         }
+    }
+
+    void FinishInteract()
+    {
+        _view?.CloseInteractWindow();
+        EventBus.Publish(new BackActionMapToken());
     }
 }

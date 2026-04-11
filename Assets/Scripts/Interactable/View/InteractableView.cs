@@ -7,11 +7,6 @@ public partial class InteractableView : ViewBase
     [SerializeField] InteractableModel _model;
     InteractablePresenter _presenter;
 
-    private void Start()
-    {
-        Initialize();
-    }
-
     public override void Initialize()
     {
         _presenter = new InteractablePresenter(this, _model);

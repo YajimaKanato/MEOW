@@ -38,6 +38,7 @@ public class PlayerPresenter : ISubscribable
         EventBus.Unsubscribe(this);
     }
 
+    #region Ingame
     public void Move(Vector2 dir)
     {
         if (_runtime == null) return;
@@ -84,31 +85,41 @@ public class PlayerPresenter : ISubscribable
     {
         if (_nearestInteractor == null) return;
         _nearestInteractor.Interact();
-        //ActionMap切り替え
+        EventBus.Publish(new NextActionMapToken(ActionMap.Interact));
     }
+    #endregion
 
+    #region Interact
     public void PushEnter()
     {
         EventBus.Publish(new PushEnterOnInteractToken());
     }
 
+    public void Cancel()
+    {
+
+    }
+    #endregion
+
     public void RegisterInteractor(InteractableView interactor)
     {
         if (interactor == null) return;
         if (!_interactorList.Contains(interactor)) _interactorList.Add(interactor);
-        interactor.Selected();
+        _nearestInteractor = interactor;
+        _nearestInteractor.Selected();
     }
 
     public void RemoveInteractor(InteractableView interactor)
     {
         if (interactor == null) return;
         if (_interactorList.Contains(interactor)) _interactorList.Remove(interactor);
-        interactor.Unselected();
+        _nearestInteractor.Unselected();
+        _nearestInteractor = null;
     }
 
     public void CalculateNearestInteractor()
     {
-        if (_interactorList == null || _interactorList.Count <= 1) return;
+        if (_interactorList == null || _interactorList.Count <= 0) return;
 
         InteractableView nearestInteractor = null;
         var minDistance = float.MaxValue;
