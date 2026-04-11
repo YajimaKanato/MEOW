@@ -6,9 +6,11 @@ using UnityEngine;
 public class InteractModel : ScriptableObject, IModel<InteractRuntime>
 {
     [SerializeField] Interactables _interactables;
+    [SerializeField] StartConversation[] _startConversations;
     [SerializeField] TextSpeed _textSpeed = TextSpeed.Normal;
 
     public Interactables Interactables => _interactables;
+    public StartConversation[] StartConversations => _startConversations;
     public TextSpeed TextSpeed => _textSpeed;
 
     public InteractRuntime CreateRuntime()

@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3946bd28ddd0a9e4f97b356f1fc566b5, type: 3}
   m_Name: ConditionalConversationAsset
   m_EditorClassIdentifier: Assembly-CSharp::ConditionalConversationAsset
+  _leftTalker: 0
+  _rightTalker: 0
   _texts:
-  - _talkerType: 0
+  - _characterType: 0
+    _talker: 0
     _text: 
+  _nextConversation: {fileID: 0}
   _conditionalConversations:
   - _nextConversation: {fileID: 0}
   _defaultNextConversation: {fileID: 0}

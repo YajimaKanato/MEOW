@@ -32,6 +32,11 @@ public partial class InteractView
         _interactWindow?.TalkRight(name);
     }
 
+    public void TalkNarration()
+    {
+        _interactWindow?.TalkNarration();
+    }
+
     public void StartStreamText(IEnumerator streamText)
     {
         StartCoroutine(streamText);

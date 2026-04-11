@@ -15,6 +15,7 @@ public class PlayerPresenter : ISubscribable
     {
         _view = view;
         _runtime = model.CreateRuntime();
+        if (_runtime == null) throw new System.NullReferenceException(nameof(_runtime));
     }
 
     public void Dispose()
@@ -41,33 +42,28 @@ public class PlayerPresenter : ISubscribable
     #region Ingame
     public void Move(Vector2 dir)
     {
-        if (_runtime == null) return;
         dir *= _runtime.GetMoveSpeed();
         _view.Move(dir);
     }
 
     public void Run(bool isRunning)
     {
-        if (_runtime == null) return;
         _runtime.Run(isRunning);
     }
 
     public void Jump()
     {
-        if (_runtime == null) return;
         if (!_runtime.IsGround) return;
         _view?.Jump(Vector2.up * _runtime.JumpPower);
     }
 
     public void Ground(bool isGround)
     {
-        if (_runtime == null) return;
         _runtime.Ground(isGround);
     }
 
     public void Down(bool isFalling)
     {
-        if (_runtime == null) return;
         _runtime.Down(isFalling);
     }
 
@@ -83,7 +79,6 @@ public class PlayerPresenter : ISubscribable
 
     public void Interact()
     {
-        if (_nearestInteractor == null) return;
         _nearestInteractor.Interact();
         EventBus.Publish(new NextActionMapToken(ActionMap.Interact));
     }

@@ -5,10 +5,14 @@ using UnityEngine.UI;
 
 public class InteractWindow : MonoBehaviour
 {
+    [SerializeField] Image _leftFilter;
     [SerializeField] Image _leftTalker;
+    [SerializeField] Image _rightFilter;
     [SerializeField] Image _rightTalker;
     [SerializeField] TextMeshProUGUI _nameText;
     [SerializeField] TextMeshProUGUI _talkText;
+    [SerializeField] float _performTimeLength = 0.2f;
+    [SerializeField, Range(0, 255)] int _filterFadeValue;
 
     public void SetTalkers(Sprite left, Sprite right)
     {
@@ -18,16 +22,32 @@ public class InteractWindow : MonoBehaviour
 
     public void TalkLeft(string name)
     {
-        _leftTalker?.transform.DOScale(1.1f, 0.2f);
-        _rightTalker?.transform.DOScale(1, 0.2f);
+        var s = DOTween.Sequence();
+        s.Join(_leftTalker?.transform.DOScale(1.1f, _performTimeLength));
+        s.Join(_leftFilter?.DOFade(0, _performTimeLength));
+        s.Join(_rightTalker?.transform.DOScale(1, _performTimeLength));
+        s.Join(_rightFilter?.DOFade(_filterFadeValue / 255f, _performTimeLength));
         if (_nameText) _nameText.text = name;
     }
 
     public void TalkRight(string name)
     {
-        _rightTalker?.transform.DOScale(1.1f, 0.2f);
-        _leftTalker?.transform.DOScale(1, 0.2f);
+        var s = DOTween.Sequence();
+        s.Join(_rightTalker?.transform.DOScale(1.1f, _performTimeLength));
+        s.Join(_rightFilter?.DOFade(0, _performTimeLength));
+        s.Join(_leftTalker?.transform.DOScale(1, _performTimeLength));
+        s.Join(_leftFilter?.DOFade(_filterFadeValue / 255f, _performTimeLength));
         if (_nameText) _nameText.text = name;
+    }
+
+    public void TalkNarration()
+    {
+        var s = DOTween.Sequence();
+        s.Join(_leftTalker?.transform.DOScale(1, _performTimeLength));
+        s.Join(_leftFilter?.DOFade(_filterFadeValue / 255f, _performTimeLength));
+        s.Join(_rightTalker?.transform.DOScale(1, _performTimeLength));
+        s.Join(_rightFilter?.DOFade(_filterFadeValue / 255f, _performTimeLength));
+        if (_nameText) _nameText.text = "";
     }
 
     public void UpdateTalkText(string text)

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df32026bdc67dd4aa5f260b31148c05, type: 3}
+  m_Name: Conversation
+  m_EditorClassIdentifier: Assembly-CSharp::ConversationAsset
+  _leftTalker: 0
+  _rightTalker: 1
+  _texts:
+  - _characterType: 0
+    _talker: 2
+    _text: "\u75E9\u305B\u3053\u3051\u305F\u72AC\u3060"
+  - _characterType: 1
+    _talker: 1
+    _text: "\u2026\u2026\u3046\u3045"
+  - _characterType: 0
+    _talker: 0
+    _text: "\u541B\u3001\u5927\u4E08\u592B\u304B"
+  - _characterType: 1
+    _talker: 1
+    _text: "......\u3042\u3042\u3001\u304A\u8FCE\u3048\u304C\u6765\u305F\u306E\u304B\u3057\u3089"
+  - _characterType: 0
+    _talker: 0
+    _text: "\u751F\u618E\u3060\u304C\u543E\u8F29\u306F\u5929\u4F7F\u306E\u8FCE\u3048\u306A\u3069\u3067\u306F\u306A\u3044\n\u305F\u3060\u306E\u901A\u308A\u3059\u304C\u308A\u3060\u3088"
+  - _characterType: 0
+    _talker: 0
+    _text: "\u305A\u3044\u3076\u3093\u8F9B\u305D\u3046\u3060\u304C\u5177\u5408\u3067\u3082\u60AA\u3044\u306E\u304B?"
+  - _characterType: 1
+    _talker: 1
+    _text: "......\u4F55\u304B\u3001\u98DF\u3079\u7269\u3092\u3001\u5206\u3051\u3066\u304F\u308C\u307E\u305B\u3093\u304B"
+  _nextConversation: {fileID: 0}

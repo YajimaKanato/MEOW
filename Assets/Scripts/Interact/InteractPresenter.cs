@@ -40,16 +40,29 @@ public class InteractPresenter : ISubscribable
 
     void StartInteract(StartInteractToken token)
     {
-        _runtime?.SetTalker(token.CharacterType);
         _view?.OpenInteractWindow();
-        _view?.StartStreamText(StreamText(_runtime.GetText()));
+        var talker = _runtime.SetTalker(token.CharacterType);
+        _view?.SetTalkers(talker.left, talker.right);
+        StartStreamText();
     }
 
     void StartStreamText()
     {
         if (_runtime == null) return;
-        if (_runningStreamingText) return;
-        _view?.StartStreamText(StreamText(_runtime.GetText()));
+        var talk = _runtime.GetText();
+        _view?.StartStreamText(StreamText(talk.text));
+        switch (talk.position)
+        {
+            case CurrentTalker.Left:
+                _view?.TalkLeft(talk.talker);
+                break;
+            case CurrentTalker.Right:
+                _view?.TalkRight(talk.talker);
+                break;
+            case CurrentTalker.Narration:
+                _view?.TalkNarration();
+                break;
+        }
     }
 
     IEnumerator StreamText(string text)
@@ -71,13 +84,12 @@ public class InteractPresenter : ISubscribable
     {
         if (!_runningStreamingText)
         {
-            if (true)
+            if (!_runtime.ContinueStory)
             {
                 FinishInteract();
             }
             else
             {
-                //次の会話
                 StartStreamText();
             }
         }

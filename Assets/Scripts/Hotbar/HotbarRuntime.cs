@@ -26,7 +26,7 @@ public class HotbarRuntime : IRuntime
 
     public void Initialize()
     {
-        
+
     }
 
     public int SelectIndex(int index)
@@ -52,7 +52,7 @@ public class HotbarRuntime : IRuntime
     /// アイテム獲得が成功したかどうかを判定するメソッド
     /// </summary>
     /// <returns>成功したかどうか、成功した場合にアイテムを格納できるインデックス</returns>
-    public (bool, int) ValidateGetItem()
+    public (bool gotItem, int index) ValidateGetItem()
     {
         if (_currentIndex > _hotbar.Length - 1 || _currentIndex < 0) return (false, -1);
         for (int i = 0; i < _hotbar.Length; i++)
@@ -81,7 +81,7 @@ public class HotbarRuntime : IRuntime
     /// アイテムを使用するメソッド
     /// </summary>
     /// <returns>使用したアイテムとそのインデックス</returns>
-    public (ItemLabel, int) UseItem()
+    public (ItemLabel item, int index) UseItem()
     {
         if (_currentIndex > _hotbar.Length - 1 || _currentIndex < 0) return (ItemLabel.None, -1);
         var item = _hotbar[_currentIndex];
@@ -113,7 +113,7 @@ public class HotbarRuntime : IRuntime
         return _indexForInteract;
     }
 
-    public (ItemLabel, int) GiveItem()
+    public (ItemLabel item, int index) GiveItem()
     {
         if (_indexForInteract > _hotbar.Length - 1 || _indexForInteract < 0) return (ItemLabel.None, -1);
         var item = _hotbar[_indexForInteract];

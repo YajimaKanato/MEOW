@@ -5,15 +5,22 @@ using UnityEngine;
 
 public class InteractRuntime : IRuntime
 {
-    CharacterType _currentTalker;
+    CharacterType _currentInteractor;
     TextSpeed _currentTextSpeed;
-    Dictionary<CharacterType, string> _storyDict = new();
+    Dictionary<CharacterType, ConversationAsset> _storyDict = new();
+    Queue<Talker> _storyQueue = new();
 
     public TextSpeed CurrentTextSpeed => _currentTextSpeed;
+    public bool ContinueStory => _storyQueue.Count > 0;
 
     public InteractRuntime(InteractModel definition)
     {
         _currentTextSpeed = definition.TextSpeed;
+        var conversations = definition.StartConversations;
+        foreach (var conversation in conversations)
+        {
+            _storyDict[conversation.TalkerType] = conversation.Conversation;
+        }
     }
 
     public void Dispose()
@@ -31,15 +38,28 @@ public class InteractRuntime : IRuntime
         _currentTextSpeed = textSpeed;
     }
 
-    public void SetTalker(CharacterType characterType)
+    public (CharacterType left, CharacterType right) SetTalker(CharacterType characterType)
     {
-        if (characterType == CharacterType.None) return;
-        _currentTalker = characterType;
+        var result = (CharacterType.None, CharacterType.None);
+        if (characterType == CharacterType.None) return result;
+        _currentInteractor = characterType;
+        if (!_storyDict.TryGetValue(_currentInteractor, out var story) || story == null) return result;
+        foreach (var s in story.Texts)
+        {
+            _storyQueue.Enqueue(s);
+        }
+        result = (story.LeftTalker, story.RightTalker);
+        return result;
     }
 
-    public string GetText()
+    public (string text, CurrentTalker position, CharacterType talker) GetText()
     {
-        if (!_storyDict.TryGetValue(_currentTalker, out var story)) return "これはテストです";
-        return story;
+        var result = ("これはテストです", CurrentTalker.Narration, CharacterType.None);
+        if (_storyQueue.Count <= 0) return result;
+        var text = _storyQueue.Dequeue();
+        if (_storyQueue.Count <= 0)
+            _storyDict[_currentInteractor] = _storyDict.TryGetValue(_currentInteractor, out var story) ? story.NextConversation : null;
+        result = (text.Text, text.TalkerType, text.CharacterType);
+        return result;
     }
 }

@@ -95,6 +95,6 @@ public class HotbarPresenter : ISubscribable
     {
         if (_runtime == null) return;
         var result = _runtime.UseItem();
-        _view?.UseItem(result.Item2);
+        _view?.UseItem(result.index);
     }
 }
