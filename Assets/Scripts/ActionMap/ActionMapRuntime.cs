@@ -9,7 +9,6 @@ public class ActionMapRuntime : IRuntime
     public ActionMapRuntime(ActionMapModel model)
     {
         _currentActionMap = model.ActionMap;
-        _actionMapStack.Push(_currentActionMap);
     }
 
     public void Initialize()
@@ -22,9 +21,22 @@ public class ActionMapRuntime : IRuntime
 
     }
 
-    public void NextActionMap(ActionMap actionMap)
+    public ActionMap NextActionMap(ActionMap actionMap)
     {
+        if (actionMap != ActionMap.None)
+        {
+            _actionMapStack.Push(_currentActionMap);
+            _currentActionMap = actionMap;
+        }
+        return _currentActionMap;
+    }
 
-        _currentActionMap = actionMap;
+    public ActionMap GetPreActionMap()
+    {
+        if (_actionMapStack.Count > 0)
+        {
+            _currentActionMap = _actionMapStack.Pop();
+        }
+        return _currentActionMap;
     }
 }

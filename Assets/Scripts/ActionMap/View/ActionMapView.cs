@@ -8,6 +8,10 @@ public partial class ActionMapView : ViewBase
 
     public override void Initialize()
     {
+        foreach (var actionMap in _actionAsset.actionMaps)
+        {
+            actionMap?.Disable();
+        }
         _presenter = new ActionMapPresenter(this, _model);
         _presenter?.Subscribe();
     }

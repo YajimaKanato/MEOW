@@ -5,5 +5,6 @@ public enum ActionMap
     Player,
     Interact,
     Menu,
-    Title
+    Title,
+    None
 }

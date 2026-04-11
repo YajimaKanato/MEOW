@@ -11,6 +11,7 @@ public class ActionMapPresenter : ISubscribable
     {
         _view = view;
         _runtime = model.CreateRuntime();
+        NextActionMap(new NextActionMapToken(ActionMap.None));
     }
 
     public void Dispose()
@@ -24,7 +25,8 @@ public class ActionMapPresenter : ISubscribable
     {
         if (_subscribed) return;
         _subscribed = true;
-        //EventBus.Subscribe<>(this,);
+        EventBus.Subscribe<NextActionMapToken>(this, NextActionMap);
+        EventBus.Subscribe<BackActionMapToken>(this, PreActionMap);
     }
 
     public void Unsubscribe()
@@ -32,5 +34,20 @@ public class ActionMapPresenter : ISubscribable
         if (!_subscribed) return;
         _subscribed = false;
         EventBus.Unsubscribe(this);
+    }
+
+    void NextActionMap(NextActionMapToken token)
+    {
+        if (_runtime == null) return;
+        var actionMap = token.ActionMap;
+        actionMap = _runtime.NextActionMap(actionMap);
+        _view?.ChangeActionMap(actionMap);
+    }
+
+    void PreActionMap(BackActionMapToken _)
+    {
+        if (_runtime == null) return;
+        var actionMap = _runtime.GetPreActionMap();
+        _view?.ChangeActionMap(actionMap);
     }
 }
