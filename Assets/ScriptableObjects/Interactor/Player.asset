@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: Assembly-CSharp::InteractableModel
   _characterType: 0
-  _characterName: 
+  _characterName: "\u732B"
   _talkingSprite: {fileID: 0}
   _silentSprite: {fileID: 0}

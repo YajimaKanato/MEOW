@@ -58,7 +58,7 @@ public class InteractRuntime : IRuntime
         if (_storyQueue.Count <= 0) return result;
         var text = _storyQueue.Dequeue();
         if (_storyQueue.Count <= 0)
-            _storyDict[_currentInteractor] = _storyDict.TryGetValue(_currentInteractor, out var story) ? story.NextConversation : null;
+            _storyDict[_currentInteractor] = _storyDict.TryGetValue(_currentInteractor, out var story) ? story.Default : null;
         result = (text.Text, text.TalkerType, text.CharacterType);
         return result;
     }
