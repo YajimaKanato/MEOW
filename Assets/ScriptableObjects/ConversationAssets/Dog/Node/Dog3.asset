@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df32026bdc67dd4aa5f260b31148c05, type: 3}
+  m_Name: Dog3
+  m_EditorClassIdentifier: Assembly-CSharp::ConversationAsset
+  _leftTalker: 0
+  _rightTalker: 1
+  _texts:
+  - _characterType: 0
+    _talker: 2
+    _text: "\u6E21\u305B\u308B\u3082\u306E\u304C\u7121\u3044"
+  - _characterType: 0
+    _talker: 0
+    _text: "\u3059\u307E\u306A\u3044\u3002\u624B\u5143\u306B\u306A\u306B\u3082\u7121\u3044\u3093\u3060"
+  - _characterType: 1
+    _talker: 1
+    _text: "\u305D\u3046\u3067\u3059\u304B\u2026\u2026"
+  _choices: []
+  _branches: []
+  _default: {fileID: 11400000, guid: 11a58eeebb4b54f45af2e720d080db61, type: 2}

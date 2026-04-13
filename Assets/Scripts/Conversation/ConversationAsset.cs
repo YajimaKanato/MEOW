@@ -7,16 +7,22 @@ public class ConversationAsset : ScriptableObject
     [SerializeField] CharacterType _leftTalker;
     [SerializeField] CharacterType _rightTalker;
     [SerializeField] Talker[] _texts;
-    [SerializeField] ConversationAsset _nextConversation;
+    [Header("分岐")]
+    [SerializeField] Choice[] _choices;
+    [SerializeField] Branch[] _branches;
+    [Header("通常時")]
+    [SerializeField] ConversationAsset _default;
 
     public CharacterType LeftTalker => _leftTalker;
     public CharacterType RightTalker => _rightTalker;
     public Talker[] Texts => _texts;
-    public ConversationAsset NextConversation => _nextConversation;
+    public Choice[] Choices => _choices;
+    public Branch[] Branches => _branches;
+    public ConversationAsset Default => _default;
 }
 
 [Serializable]
-public struct Talker
+public class Talker
 {
     [SerializeField] CharacterType _characterType;
     [SerializeField] CurrentTalker _talker;

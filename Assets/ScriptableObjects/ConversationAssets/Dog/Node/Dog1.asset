@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6df32026bdc67dd4aa5f260b31148c05, type: 3}
-  m_Name: Conversation
+  m_Name: Dog1
   m_EditorClassIdentifier: Assembly-CSharp::ConversationAsset
   _leftTalker: 0
   _rightTalker: 1
@@ -36,4 +36,6 @@ MonoBehaviour:
   - _characterType: 1
     _talker: 1
     _text: "......\u4F55\u304B\u3001\u98DF\u3079\u7269\u3092\u3001\u5206\u3051\u3066\u304F\u308C\u307E\u305B\u3093\u304B"
-  _nextConversation: {fileID: 0}
+  _choices: []
+  _branches: []
+  _default: {fileID: 11400000, guid: 11a58eeebb4b54f45af2e720d080db61, type: 2}
