@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84b67458835660346916d57e84ef3beb, type: 3}
   m_Name: DogBranch1
   m_EditorClassIdentifier: Assembly-CSharp::Branch
-  _condition:
-    _conditionType: 0
-    _nodeType: 0
+  _conditions:
+  - _conditionType: 0
     _conditionKey: 0
   _next: {fileID: 11400000, guid: cb3ea2c14e7aff447a5e84872c8de50f, type: 2}

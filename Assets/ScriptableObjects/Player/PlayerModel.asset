@@ -15,3 +15,4 @@ MonoBehaviour:
   _walkSpeed: 5
   _runSpeed: 10
   _jumpPower: 10
+  _hotbar: {fileID: 11400000, guid: f3b1a4c5a2456954683c8bb4a8d52ba5, type: 2}

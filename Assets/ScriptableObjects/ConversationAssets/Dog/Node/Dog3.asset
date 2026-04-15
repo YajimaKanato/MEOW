@@ -12,18 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6df32026bdc67dd4aa5f260b31148c05, type: 3}
   m_Name: Dog3
   m_EditorClassIdentifier: Assembly-CSharp::ConversationAsset
-  _leftTalker: 0
-  _rightTalker: 1
-  _texts:
-  - _characterType: 0
-    _talker: 2
-    _text: "\u6E21\u305B\u308B\u3082\u306E\u304C\u7121\u3044"
-  - _characterType: 0
-    _talker: 0
-    _text: "\u3059\u307E\u306A\u3044\u3002\u624B\u5143\u306B\u306A\u306B\u3082\u7121\u3044\u3093\u3060"
-  - _characterType: 1
-    _talker: 1
-    _text: "\u305D\u3046\u3067\u3059\u304B\u2026\u2026"
+  _characterType: 1
+  _id: 2
+  _nodeType: 0
+  _finish: 1
+  _choiceType: 2
   _choices: []
   _branches: []
   _default: {fileID: 11400000, guid: 11a58eeebb4b54f45af2e720d080db61, type: 2}
+  _texts:
+  - _leftTalker: 0
+    _rightTalker: 1
+    _talker: 2
+    _text: "\u6E21\u305B\u308B\u3082\u306E\u304C\u7121\u3044"
+  - _leftTalker: 0
+    _rightTalker: 1
+    _talker: 0
+    _text: "\u3059\u307E\u306A\u3044\u3002\u624B\u5143\u306B\u306A\u306B\u3082\u7121\u3044\u3093\u3060"
+  - _leftTalker: 0
+    _rightTalker: 1
+    _talker: 1
+    _text: "\u305D\u3046\u3067\u3059\u304B\u2026\u2026"

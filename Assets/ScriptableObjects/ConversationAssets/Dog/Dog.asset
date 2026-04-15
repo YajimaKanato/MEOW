@@ -9,8 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9eeb4edf0e080584b87d222a4761d031, type: 3}
+  m_Script: {fileID: 11500000, guid: ff60c693a431aa04d8222d67a7e12afb, type: 3}
   m_Name: Dog
-  m_EditorClassIdentifier: Assembly-CSharp::ConvesationList
+  m_EditorClassIdentifier: Assembly-CSharp::ConversationList
   _talkerType: 1
-  _startConversation: {fileID: 11400000, guid: dead90fcfd09e45428fa9880833622a3, type: 2}
+  _startID: 0
+  _startConversations:
+  - {fileID: 11400000, guid: dead90fcfd09e45428fa9880833622a3, type: 2}
+  - {fileID: 11400000, guid: 11a58eeebb4b54f45af2e720d080db61, type: 2}
+  - {fileID: 11400000, guid: 29123d7a00266f04e9085ca44a956e41, type: 2}
+  - {fileID: 11400000, guid: cb3ea2c14e7aff447a5e84872c8de50f, type: 2}
+  - {fileID: 11400000, guid: beae5c8961b3af247989bc402b6a3379, type: 2}
