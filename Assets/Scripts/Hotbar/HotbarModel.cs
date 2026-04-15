@@ -5,8 +5,10 @@ using UnityEngine;
 public class HotbarModel : ScriptableObject, IModel<HotbarRuntime>
 {
     [SerializeField] ItemBase[] _hotbar;
+    [SerializeField, Min(0)] int _defaultIndex = 0;
 
     public ItemBase[] Hotbar => _hotbar;
+    public int DefaultIndex => _defaultIndex;
 
     public HotbarRuntime CreateRuntime()
     {

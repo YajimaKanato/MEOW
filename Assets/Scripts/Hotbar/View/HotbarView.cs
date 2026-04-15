@@ -15,7 +15,7 @@ public partial class HotbarView : ViewBase
             _spriteDict[item.ItemLabel] = item.ItemSprite;
         }
 
-        CloseInteractHotbar();
+        UpdateIngameHotbar(_model.Hotbar, _model.DefaultIndex);
         _presenter?.Subscribe();
     }
 

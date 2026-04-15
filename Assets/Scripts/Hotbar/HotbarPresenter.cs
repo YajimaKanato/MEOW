@@ -11,7 +11,7 @@ public class HotbarPresenter : ISubscribable
     {
         _view = view;
         _runtime = model.CreateRuntime();
-        _view?.OpenIngameHotbar(_runtime.Hotbar);
+        if (_runtime == null) throw new System.NullReferenceException(nameof(_runtime));
     }
 
     public void Dispose()
@@ -26,9 +26,9 @@ public class HotbarPresenter : ISubscribable
         if (_subscribed) return;
         _subscribed = true;
         EventBus.Subscribe<SelectIngameHotbarToken>(this, SelectIngameSlot);
-        EventBus.Subscribe<SelectInteractHotbarToken>(this, SelectInteractSlot);
         EventBus.Subscribe<MoveIngameHotbarToken>(this, MoveIngameIndex);
-        EventBus.Subscribe<MoveInteractHotbarToken>(this, MoveInteractIndex);
+        EventBus.Subscribe<GetItemToken>(this, UpdateHotbar);
+        EventBus.Subscribe<UseItemToken>(this, UpdateHotbar);
     }
 
     public void Unsubscribe()
@@ -40,61 +40,23 @@ public class HotbarPresenter : ISubscribable
 
     public void SelectIngameSlot(SelectIngameHotbarToken token)
     {
-        if (_runtime == null) return;
         var index = _runtime.SelectIndex(token.Index);
-        _view?.ChangeIngameSlot(index);
-    }
-
-    public void SelectInteractSlot(SelectInteractHotbarToken token)
-    {
-        if (_runtime == null) return;
-        var index = _runtime.SelectInteractIndex(token.Index);
-        _view?.ChangeInteractSlot(index);
+        _view?.ChangeSlot(index);
     }
 
     public void MoveIngameIndex(MoveIngameHotbarToken token)
     {
-        if (_runtime == null) return;
         var index = _runtime.MoveIndex(token.Move);
-        _view?.ChangeIngameSlot(index);
+        _view?.ChangeSlot(index);
     }
 
-    public void MoveInteractIndex(MoveInteractHotbarToken token)
+    void UpdateHotbar(GetItemToken token)
     {
-        if (_runtime == null) return;
-        var index = _runtime.MoveInteractIndex(token.Move);
-        _view?.ChangeInteractSlot(index);
+        _view?.UpdateIngameHotbar(token.Hotbar, _runtime.CurrentIndex);
     }
 
-    public void ValidateGetItem()
+    void UpdateHotbar(UseItemToken token)
     {
-        if (_runtime == null) return;
-        var item = _runtime.ValidateGetItem();
-    }
-
-    public void OpenInteractHotbar()
-    {
-        if (_runtime == null) return;
-        _runtime?.OpenInteractHotbar();
-        _view?.OpenInteractHotbar(_runtime.Hotbar);
-    }
-
-    public void CloseInteractHotbar()
-    {
-
-    }
-
-    public void GetItem()
-    {
-        if (_runtime == null) return;
-        var dropitem = _runtime.GetItem(ItemLabel.None, 0);
-        _view?.GetItem(ItemLabel.None, 0);
-    }
-
-    public void UseItem()
-    {
-        if (_runtime == null) return;
-        var result = _runtime.UseItem();
-        _view?.UseItem(result.index);
+        _view?.UpdateIngameHotbar(token.Hotbar, _runtime.CurrentIndex);
     }
 }

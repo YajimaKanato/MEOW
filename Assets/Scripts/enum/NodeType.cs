@@ -2,8 +2,7 @@ using UnityEngine;
 
 public enum NodeType
 {
-    [InspectorName("単体条件")] Leaf,
-    [InspectorName("かつ")] And,
-    [InspectorName("または")] Or,
-    [InspectorName("でなければ")] Not
+    [InspectorName("会話")] Conversation,
+    [InspectorName("選択肢")] Choice,
+    [InspectorName("アイテムをあげる")] GiveItem
 }

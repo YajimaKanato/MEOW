@@ -69,12 +69,26 @@ public class PlayerPresenter : ISubscribable
 
     public void SelectHotbar(int index)
     {
+        _runtime.SelectIndex(index);
         EventBus.Publish(new SelectIngameHotbarToken(index));
     }
 
     public void MoveHotbar(SlotMove index)
     {
+        _runtime.MoveIndex(index);
         EventBus.Publish(new MoveIngameHotbarToken(index));
+    }
+
+    void GetItem(GiveItemToken token)
+    {
+        if (!_runtime.TryGetItem(token.Item))
+        {
+            EventBus.Publish(new OpenInteractHotbarToken(_runtime.Hotbar, token.Item));
+        }
+        else
+        {
+
+        }
     }
 
     public void Interact()

@@ -1,26 +1,18 @@
 using MVPTools.Runtime;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class InteractRuntime : IRuntime
 {
-    CharacterType _currentInteractor;
+    InteractManager _manager;
     TextSpeed _currentTextSpeed;
-    Dictionary<CharacterType, ConversationAsset> _storyDict = new();
-    Queue<Talker> _storyQueue = new();
+    int _currentIndex;
 
     public TextSpeed CurrentTextSpeed => _currentTextSpeed;
-    public bool ContinueStory => _storyQueue.Count > 0;
 
     public InteractRuntime(InteractModel definition)
     {
         _currentTextSpeed = definition.TextSpeed;
-        var conversations = definition.StartConversations;
-        foreach (var conversation in conversations)
-        {
-            _storyDict[conversation.TalkerType] = conversation.Conversation;
-        }
+        _currentIndex = definition.Hotbar.DefaultIndex;
+        _manager = new InteractManager(definition.Conversations);
     }
 
     public void Dispose()
@@ -38,28 +30,54 @@ public class InteractRuntime : IRuntime
         _currentTextSpeed = textSpeed;
     }
 
-    public (CharacterType left, CharacterType right) SetTalker(CharacterType characterType)
+    public bool SetTalker(CharacterType characterType, out ConversationAsset asset)
     {
-        var result = (CharacterType.None, CharacterType.None);
-        if (characterType == CharacterType.None) return result;
-        _currentInteractor = characterType;
-        if (!_storyDict.TryGetValue(_currentInteractor, out var story) || story == null) return result;
-        foreach (var s in story.Texts)
-        {
-            _storyQueue.Enqueue(s);
-        }
-        result = (story.LeftTalker, story.RightTalker);
-        return result;
+        return _manager.SetTalker(characterType, out asset);
     }
 
-    public (string text, CurrentTalker position, CharacterType talker) GetText()
+    public void UpdateID(CharacterType characterType, ConversationID id)
     {
-        var result = ("これはテストです", CurrentTalker.Narration, CharacterType.None);
-        if (_storyQueue.Count <= 0) return result;
-        var text = _storyQueue.Dequeue();
-        if (_storyQueue.Count <= 0)
-            _storyDict[_currentInteractor] = _storyDict.TryGetValue(_currentInteractor, out var story) ? story.Default : null;
-        result = (text.Text, text.TalkerType, text.CharacterType);
-        return result;
+        _manager.UpdateID(characterType, id);
+    }
+
+    public void SetKey(ConditionKey conditionKey)
+    {
+        _manager.SetKey(conditionKey);
+    }
+
+    public void RemoveKey(ConditionKey conditionKey)
+    {
+        _manager.RemoveKey(conditionKey);
+    }
+
+    public bool CheckCondition(Branch branch)
+    {
+        return _manager.CheckCondition(branch);
+    }
+
+    public void Clear()
+    {
+        _manager.Clear();
+    }
+
+    public void OpenHotbar()
+    {
+        _currentIndex = 0;
+    }
+
+    public int SelectIndex(int index)
+    {
+        _currentIndex = index;
+        return _currentIndex;
+    }
+
+    /// <summary>
+    /// ホットバーの次の要素を選択するメソッド
+    /// </summary>
+    /// <returns>選択したインデックス</returns>
+    public int MoveIndex(SlotMove move)
+    {
+        _currentIndex += (int)move;
+        return _currentIndex;
     }
 }

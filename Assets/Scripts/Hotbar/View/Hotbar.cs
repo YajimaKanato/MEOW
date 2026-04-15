@@ -6,9 +6,9 @@ public class Hotbar : MonoBehaviour
     [SerializeField] CanvasGroup _canvasGroup;
     int _currentIndex = 0;
 
-    public void OpenHotbar(Sprite[] sprites)
+    public void OpenHotbar(Sprite[] sprites, int index)
     {
-        _currentIndex = 0;
+        _currentIndex = index;
         for (int i = 0; i < _hotbar.Length; i++)
         {
             _hotbar[i].GetItem(sprites[i]);

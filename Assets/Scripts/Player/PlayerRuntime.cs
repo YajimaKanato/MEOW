@@ -2,19 +2,28 @@ using MVPTools.Runtime;
 
 public class PlayerRuntime : IRuntime
 {
+    ItemBase[] _hotbar;
     float _walkSpeed;
     float _runSpeed;
     float _jumpPower;
+    int _currentIndex = 0;
     bool _isRunnig;
     bool _isGround;
     bool _isFalling;
 
+    public ItemBase[] Hotbar => _hotbar;
     public float JumpPower => _jumpPower;
     public bool IsGround => _isGround;
     public bool IsFalling => _isFalling;
 
     public PlayerRuntime(PlayerModel model)
     {
+        var hotbar = model.Hotbar.Hotbar;
+        _hotbar = new ItemBase[hotbar.Length];
+        for (int i = 0; i < hotbar.Length; i++)
+        {
+            _hotbar[i] = hotbar[i];
+        }
         _walkSpeed = model.WalkSpeed;
         _runSpeed = model.RunSpeed;
         _jumpPower = model.JumpPower;
@@ -48,5 +57,70 @@ public class PlayerRuntime : IRuntime
     public void Down(bool isFalling)
     {
         if (_isGround) _isFalling = isFalling;
+    }
+
+    public int SelectIndex(int index)
+    {
+        if (index > _hotbar.Length - 1) return -1;
+        _currentIndex = index;
+        return _currentIndex;
+    }
+
+    /// <summary>
+    /// ホットバーの次の要素を選択するメソッド
+    /// </summary>
+    /// <returns>選択したインデックス</returns>
+    public int MoveIndex(SlotMove move)
+    {
+        _currentIndex += (int)move;
+        if (_currentIndex > _hotbar.Length - 1) _currentIndex = 0;
+        if (_currentIndex < 0) _currentIndex = _hotbar.Length - 1;
+        return _currentIndex;
+    }
+
+    /// <summary>
+    /// アイテム獲得が成功したかどうかを判定するメソッド
+    /// </summary>
+    /// <returns>成功したかどうか</returns>
+    public bool TryGetItem(ItemBase item)
+    {
+        if (_currentIndex > _hotbar.Length - 1 || _currentIndex < 0) return false;
+        if (item == null) return false;
+        for (int i = 0; i < _hotbar.Length; i++)
+        {
+            if (_hotbar[i].ItemLabel == ItemLabel.None)
+            {
+                GetItem(item, i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// アイテムを獲得するメソッド
+    /// </summary>
+    /// <param name="item">獲得したアイテム</param>
+    /// <param name="index">格納するインデックス</param>
+    /// <returns>交換したアイテム</returns>
+    public ItemBase GetItem(ItemBase item, int index)
+    {
+        if (index > _hotbar.Length - 1 || index < 0) return null;
+        if (item == null) return null;
+        var returnItem = _hotbar[index];
+        _hotbar[index] = item;
+        return returnItem;
+    }
+
+    /// <summary>
+    /// アイテムを使用するメソッド
+    /// </summary>
+    /// <returns>使用したアイテム</returns>
+    public ItemBase UseItem()
+    {
+        if (_currentIndex > _hotbar.Length - 1 || _currentIndex < 0) return null;
+        var item = _hotbar[_currentIndex];
+        _hotbar[_currentIndex] = null;
+        return item;
     }
 }

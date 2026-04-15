@@ -3,6 +3,7 @@ using UnityEngine;
 
 public partial class InteractView : ViewBase
 {
+    [SerializeField] ItemList _itemList;
     [SerializeField] InteractModel _model;
     InteractPresenter _presenter;
 
