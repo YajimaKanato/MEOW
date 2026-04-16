@@ -35,7 +35,7 @@ public class InteractRuntime : IRuntime
         return _manager.SetTalker(characterType, out asset);
     }
 
-    public void UpdateID(CharacterType characterType, ConversationID id)
+    public void UpdateID(CharacterType characterType, int id)
     {
         _manager.UpdateID(characterType, id);
     }

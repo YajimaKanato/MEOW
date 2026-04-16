@@ -15,4 +15,5 @@ MonoBehaviour:
   _interactableList:
   - {fileID: 11400000, guid: 4f561043e1eac0d4082f863cea8704e6, type: 2}
   - {fileID: 11400000, guid: 0ff5b47a76c811143b74edfc5a9c872f, type: 2}
+  - {fileID: 11400000, guid: 80b3f616426f2d44bb6afec1e1eba091, type: 2}
   - {fileID: 11400000, guid: 102806763dd44ae4dbf1a6551a8e8d18, type: 2}

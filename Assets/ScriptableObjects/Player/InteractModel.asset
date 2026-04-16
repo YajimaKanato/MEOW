@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: InteractModel
   m_EditorClassIdentifier: Assembly-CSharp::InteractModel
   _interactables: {fileID: 11400000, guid: 6f284e8dda243b344854cb301b3650bd, type: 2}
-  _startConversations:
+  _conversations:
   - {fileID: 11400000, guid: 239c199451f6e6d4f929b772d7f402f5, type: 2}
+  - {fileID: 11400000, guid: 5c473af575c25f24289a121ec19f8afc, type: 2}
+  _hotbar: {fileID: 11400000, guid: f3b1a4c5a2456954683c8bb4a8d52ba5, type: 2}
   _textSpeed: 10

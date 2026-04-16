@@ -4,17 +4,17 @@ using UnityEngine;
 public class InteractManager
 {
     HashSet<ConditionKey> _conditionKeys = new();
-    Dictionary<CharacterType, ConversationID> _storyDict = new();
-    Dictionary<ConversationID, ConversationAsset> _assetDict = new();
+    Dictionary<CharacterType, string> _storyDict = new();
+    Dictionary<string, ConversationAsset> _assetDict = new();
 
     public InteractManager(ConversationList[] list)
     {
         foreach (var conversations in list)
         {
-            _storyDict[conversations.TalkerType] = conversations.StartID;
+            _storyDict[conversations.TalkerType] = $"{conversations.TalkerType}{conversations.StartID}";
             foreach (var conversation in conversations.Conversations)
             {
-                _assetDict[conversation.ID] = conversation;
+                _assetDict[$"{conversation.CharacterType}{conversation.ID}"] = conversation;
             }
         }
     }
@@ -49,9 +49,9 @@ public class InteractManager
         return _storyDict.TryGetValue(characterType, out var id) && _assetDict.TryGetValue(id, out asset);
     }
 
-    public void UpdateID(CharacterType characterType, ConversationID id)
+    public void UpdateID(CharacterType characterType, int id)
     {
         if (!_storyDict.ContainsKey(characterType)) return;
-        _storyDict[characterType] = id;
+        _storyDict[characterType] = $"{characterType}{id}";
     }
 }

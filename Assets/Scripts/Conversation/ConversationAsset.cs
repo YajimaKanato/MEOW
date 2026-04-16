@@ -6,7 +6,7 @@ public class ConversationAsset : ScriptableObject
 {
     [Header("会話ノードの種類")]
     [SerializeField] CharacterType _characterType;
-    [SerializeField] ConversationID _id;
+    [SerializeField] int _id;
     [SerializeField] NodeType _nodeType = NodeType.Conversation;
     [SerializeField] bool _finish;
     [Header("選択肢")]
@@ -21,7 +21,7 @@ public class ConversationAsset : ScriptableObject
     [SerializeField] ItemBase _item;
 
     public CharacterType CharacterType => _characterType;
-    public ConversationID ID => _id;
+    public int ID => _id;
     public NodeType NodeType => _nodeType;
     public bool Finish => _finish;
     public ChoiceType ChoiceType => _choiceType;

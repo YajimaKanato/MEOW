@@ -14,6 +14,17 @@ public class InteractWindow : MonoBehaviour
     [SerializeField] float _performTimeLength = 0.2f;
     [SerializeField, Range(0, 255)] int _filterFadeValue;
 
+    public void ResetWindow()
+    {
+        var s = DOTween.Sequence();
+        s.Join(_leftTalker?.transform.DOScale(1, 0));
+        s.Join(_leftFilter?.DOFade(_filterFadeValue / 255f, 0));
+        s.Join(_rightTalker?.transform.DOScale(1, 0));
+        s.Join(_rightFilter?.DOFade(_filterFadeValue / 255f, 0));
+        if (_nameText) _nameText.text = "";
+        if (_talkText) _talkText.text = "";
+    }
+
     public void SetTalkers(Sprite left, Sprite right)
     {
         if (_leftTalker) _leftTalker.sprite = left;

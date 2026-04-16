@@ -15,6 +15,7 @@ public partial class InteractView
     public void OpenInteractWindow()
     {
         _interactWindow?.gameObject?.SetActive(true);
+        _interactWindow?.ResetWindow();
     }
 
     public void SetTalkers(CharacterType left, CharacterType right)

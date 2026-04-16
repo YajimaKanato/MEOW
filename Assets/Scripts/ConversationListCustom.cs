@@ -17,7 +17,7 @@ public class ConversationListCustom : Editor
                 .Select(path => AssetDatabase.LoadAssetAtPath<ConversationAsset>(path))
                 .Where(data => data != null)
                 .Where(data => data.CharacterType == conversationList.TalkerType)
-                .OrderBy(data => data.ID)
+                .OrderBy(data => data.CharacterType + data.ID)
                 .ToArray();
 
             Undo.RecordObject(conversationList, "Auto Collection Asset");

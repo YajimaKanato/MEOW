@@ -4,11 +4,11 @@ using UnityEngine;
 public class ConversationList : ScriptableObject
 {
     [SerializeField] CharacterType _talkerType;
-    [SerializeField] ConversationID _startID;
+    [SerializeField] int _startID;
     [SerializeField] ConversationAsset[] _startConversations;
 
     public CharacterType TalkerType => _talkerType;
-    public ConversationID StartID => _startID;
+    public int StartID => _startID;
     public ConversationAsset[] Conversations => _startConversations;
 
 #if UNITY_EDITOR

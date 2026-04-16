@@ -60,6 +60,12 @@ public class InteractPresenter : ISubscribable
         //テキストがないまたは既にテキストを流し終わった後
         if (_currentConversation.Texts == null || _currentConversation.Texts.Length <= 0 || (_queue != null && _queue.Count <= 0))
         {
+            //アイテムを渡すインタラクトの場合はUIだけ表示
+            if (_currentConversation.NodeType == NodeType.GiveItem)
+            {
+                EventBus.Publish(new GiveItemToken(_currentConversation.Item));
+                return;
+            }
             //自動分岐判定
             foreach (var conversation in _currentConversation.Branches)
             {
@@ -75,12 +81,6 @@ public class InteractPresenter : ISubscribable
         foreach (var text in _currentConversation.Texts)
         {
             _queue.Enqueue(text);
-        }
-        //アイテムを渡すインタラクトの場合はUIだけ表示
-        if (_currentConversation.NodeType == NodeType.GiveItem)
-        {
-            EventBus.Publish(new GiveItemToken(_currentConversation.Item));
-            return;
         }
         StreamText();
     }
