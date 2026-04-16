@@ -14,8 +14,10 @@ public partial class InteractView
     //Viewの表示部分を実装
     public void OpenInteractWindow()
     {
+        if (_interactWindow.gameObject.activeSelf) return;
         _interactWindow?.gameObject?.SetActive(true);
         _interactWindow?.ResetWindow();
+        _interactWindow?.SetTalkers(null, null);
     }
 
     public void SetTalkers(CharacterType left, CharacterType right)

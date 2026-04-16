@@ -9,10 +9,12 @@ public class InteractPresenter : ISubscribable
     InteractView _view;
     InteractRuntime _runtime;
     ConversationAsset _currentConversation;
-    Queue<Talker> _queue;
+    Queue<Paragraph> _queue;
+    InteractStateMachine _stateMachine = new();
     bool _subscribed;
     bool _runningStreamingText;
     bool _gaveItem;
+    bool _openMenu;
 
     public InteractPresenter(InteractView view, InteractModel model)
     {
@@ -49,9 +51,30 @@ public class InteractPresenter : ISubscribable
 
     void StartInteract(StartInteractToken token)
     {
-        _view?.OpenInteractWindow();
         if (_runtime.SetTalker(token.CharacterType, out _currentConversation))
+        {
             UpdateInteract();
+            ChangeState();
+        }
+    }
+
+    public void ChangeState()
+    {
+        var paragraph = _queue.Peek();
+        IEnterState state = null;
+        switch (paragraph.NodeType)
+        {
+            case NodeType.Conversation:
+                state = new ConversationEnter(this);
+                break;
+            case NodeType.Choice:
+                break;
+            case NodeType.GiveItem:
+                break;
+            default:
+                break;
+        }
+        _stateMachine.ChangeState(state);
     }
 
     void UpdateInteract()
@@ -60,12 +83,12 @@ public class InteractPresenter : ISubscribable
         //テキストがないまたは既にテキストを流し終わった後
         if (_currentConversation.Texts == null || _currentConversation.Texts.Length <= 0 || (_queue != null && _queue.Count <= 0))
         {
-            //アイテムを渡すインタラクトの場合はUIだけ表示
-            if (_currentConversation.NodeType == NodeType.GiveItem)
-            {
-                EventBus.Publish(new GiveItemToken(_currentConversation.Item));
-                return;
-            }
+            ////アイテムを渡すインタラクトの場合はUIだけ表示
+            //if (_currentConversation.NodeType == NodeType.GiveItem)
+            //{
+            //    EventBus.Publish(new GiveItemToken(_currentConversation.Item));
+            //    return;
+            //}
             //自動分岐判定
             foreach (var conversation in _currentConversation.Branches)
             {
@@ -82,12 +105,12 @@ public class InteractPresenter : ISubscribable
         {
             _queue.Enqueue(text);
         }
-        StreamText();
     }
 
-    void StreamText()
+    public void StreamText()
     {
         var talk = _queue.Dequeue();
+        _view?.OpenInteractWindow();
         _view?.StartStreamText(StreamText(talk.Text));
         _view?.SetTalkers(talk.LeftTalker, talk.RightTalker);
         switch (talk.TalkerType)
@@ -108,12 +131,25 @@ public class InteractPresenter : ISubscribable
     {
         _runningStreamingText = true;
         var sb = new StringBuilder();
-        foreach (var c in text)
+        for (int i = 0; i < text.Length; i++)
         {
-            sb.Append(c);
+            //待機ループ
+            while (_openMenu)
+            {
+                yield return null;
+            }
+            sb.Append(text[i]);
             _view?.StreamText(sb.ToString());
             if (!_runningStreamingText) break;
-            yield return new WaitForSeconds(1f / (int)_runtime.CurrentTextSpeed);
+            var waitTime = 1f / (int)_runtime.CurrentTextSpeed;
+            var t = 0f;
+            while (t < waitTime)
+            {
+                if (!_runningStreamingText) break;
+                if (!_openMenu)
+                    t += Time.deltaTime;
+                yield return null;
+            }
         }
         _view?.StreamText(text);
         _runningStreamingText = false;
@@ -125,11 +161,12 @@ public class InteractPresenter : ISubscribable
         {
             if (_queue == null || _queue.Count <= 0)
             {
-                FinishInteract();
+                if (_currentConversation != null && _currentConversation.Finish)
+                    FinishInteract();
             }
             else
             {
-                StreamText();
+                _stateMachine.Execute();
             }
         }
         else
@@ -171,10 +208,10 @@ public class InteractPresenter : ISubscribable
         _runtime.RemoveKey(token.Key);
     }
 
-    void GiveItem()
-    {
-        var item = _currentConversation.Item;
-    }
+    //void GiveItem()
+    //{
+    //    var item = _currentConversation.Item;
+    //}
 
     void OpenHotbar()
     {

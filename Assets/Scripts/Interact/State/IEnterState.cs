@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public interface IInteractState
+public interface IEnterState
 {
     void Entry();
-    void Execute();
+    void PushEnter();
     void Exit();
 }

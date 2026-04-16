@@ -2,15 +2,9 @@ using UnityEngine;
 
 public class InteractStateMachine
 {
-    IInteractState _currentState;
+    IEnterState _currentState;
 
-    public void Init(IInteractState startState)
-    {
-        _currentState = startState;
-        _currentState?.Entry();
-    }
-
-    public void ChangeState(IInteractState newState)
+    public void ChangeState(IEnterState newState)
     {
         _currentState?.Exit();
         _currentState = newState;
@@ -19,6 +13,6 @@ public class InteractStateMachine
 
     public void Execute()
     {
-        _currentState?.Execute();
+        _currentState?.PushEnter();
     }
 }
