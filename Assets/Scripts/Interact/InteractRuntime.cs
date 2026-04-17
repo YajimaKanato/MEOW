@@ -1,4 +1,5 @@
 using MVPTools.Runtime;
+using static UnityEditor.Progress;
 
 public class InteractRuntime : IRuntime
 {
@@ -13,9 +14,9 @@ public class InteractRuntime : IRuntime
     {
         get
         {
-            foreach (var item in _hotbar)
+            for (int i = 0; i < _hotbar.Length - 1; i++)
             {
-                if (item == ItemLabel.None) return true;
+                if (_hotbar[i] == ItemLabel.None) return true;
             }
             return false;
         }
@@ -27,10 +28,10 @@ public class InteractRuntime : IRuntime
         _currentIndex = definition.Hotbar.DefaultIndex;
         _manager = new InteractManager(definition.Conversations);
         var hotbar = definition.Hotbar.Hotbar;
-        _hotbar = new ItemLabel[hotbar.Length];
-        for (int i = 0; i < hotbar.Length; i++)
+        _hotbar = new ItemLabel[hotbar.Length + 1];
+        for (int i = 0; i < _hotbar.Length; i++)
         {
-            if (i == hotbar.Length - 1)
+            if (i == _hotbar.Length - 1)
                 _hotbar[i] = ItemLabel.None;
             else
                 _hotbar[i] = hotbar[i] != null ? hotbar[i].ItemLabel : ItemLabel.None;
@@ -114,7 +115,7 @@ public class InteractRuntime : IRuntime
 
     public void GetItem(ItemLabel item)
     {
-        for (int i = 0; i < _hotbar.Length - 1; i++)
+        for (int i = 0; i < _hotbar.Length; i++)
         {
             if (_hotbar[i] == ItemLabel.None)
             {
@@ -122,7 +123,12 @@ public class InteractRuntime : IRuntime
                 return;
             }
         }
+    }
+
+    public void ChangeItem()
+    {
+        var swap = _hotbar[_hotbar.Length - 1];
         _hotbar[_hotbar.Length - 1] = _hotbar[_currentIndex];
-        _hotbar[_currentIndex] = item;
+        _hotbar[_currentIndex] = swap;
     }
 }

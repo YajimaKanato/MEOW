@@ -8,7 +8,7 @@ public class Hotbar : MonoBehaviour
     public void OpenHotbar(Sprite[] sprites, int index)
     {
         _currentIndex = index;
-        for (int i = 0; i < _hotbar.Length; i++)
+        for (int i = 0; i < sprites.Length; i++)
         {
             _hotbar[i].SetItem(sprites[i]);
             if (i == _currentIndex)

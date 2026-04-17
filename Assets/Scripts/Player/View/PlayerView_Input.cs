@@ -93,17 +93,29 @@ public partial class PlayerView
 
     void SelectItemOnInteract(InputAction.CallbackContext ctx)
     {
+        var key = (KeyControl)ctx.control;
+        var index = -1;
+        if (Key.Digit1 <= key.keyCode && key.keyCode <= Key.Digit7)
+        {
+            index = key.keyCode - Key.Digit1;
+        }
 
+        if (Key.Numpad1 <= key.keyCode && key.keyCode <= Key.Numpad7)
+        {
+            index = key.keyCode - Key.Numpad1;
+        }
+
+        if (index != -1) _presenter?.SelectInteractHotbar(index);
     }
 
     void NextItemOnInteract(InputAction.CallbackContext ctx)
     {
-
+        _presenter?.MoveHotbar(SlotMove.Post);
     }
 
     void BackItemOnInteract(InputAction.CallbackContext ctx)
     {
-
+        _presenter?.MoveHotbar(SlotMove.Pre);
     }
 
     void MenuOnInteract(InputAction.CallbackContext ctx)

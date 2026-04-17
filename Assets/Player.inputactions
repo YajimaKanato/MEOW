@@ -855,6 +855,17 @@
                 },
                 {
                     "name": "",
+                    "id": "cfca6ba3-6912-426b-812e-437b959021c6",
+                    "path": "<Keyboard>/7",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "SelectItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5b508903-e349-4c3e-a92c-a5af5a46de94",
                     "path": "<Keyboard>/numpad1",
                     "interactions": "",
@@ -921,6 +932,17 @@
                 },
                 {
                     "name": "",
+                    "id": "17c0a372-839b-4d33-a52d-43ee5b5a61e7",
+                    "path": "<Keyboard>/numpad7",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "SelectItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "1c06642d-1fbf-4204-b1d2-3c3af56bfdb9",
                     "path": "<Keyboard>/#(1)",
                     "interactions": "",
@@ -978,6 +1000,17 @@
                     "name": "",
                     "id": "9b17eccd-61d2-46ec-b4b9-4a272b7aae0d",
                     "path": "<Keyboard>/#(6)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "SelectItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "96f804d8-f38d-4a00-a53e-54433e19f0b5",
+                    "path": "<Keyboard>/#(7)",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",

@@ -9,7 +9,7 @@ public class InteractPresenter : ISubscribable
     InteractView _view;
     InteractRuntime _runtime;
     ConversationAsset _currentConversation;
-    Queue<Paragraph> _queue;
+    Queue<Paragraph> _queue = new();
     Paragraph _currentParagraph;
     InteractStateMachine _stateMachine = new();
     bool _subscribed;
@@ -85,26 +85,25 @@ public class InteractPresenter : ISubscribable
     {
         if (_currentConversation == null) return;
         //テキストがないまたは既にテキストを流し終わった後
-        if (_currentConversation.Texts == null || _currentConversation.Texts.Length <= 0 || (_queue != null && _queue.Count <= 0))
-        {
-            ////アイテムを渡すインタラクトの場合はUIだけ表示
-            //if (_currentConversation.NodeType == NodeType.GiveItem)
-            //{
-            //    EventBus.Publish(new GiveItemToken(_currentConversation.Item));
-            //    return;
-            //}
-            //自動分岐判定
-            foreach (var conversation in _currentConversation.Branches)
-            {
-                if (_runtime.CheckCondition(conversation))
-                {
-                    _currentConversation = conversation.Next;
-                    break;
-                }
-            }
-            _currentConversation = _currentConversation.Default;
-        }
-        _queue = new();
+        //if (_currentConversation.Texts == null || _currentConversation.Texts.Length <= 0 || (_queue != null && _queue.Count <= 0))
+        //{
+        //    ////アイテムを渡すインタラクトの場合はUIだけ表示
+        //    //if (_currentConversation.NodeType == NodeType.GiveItem)
+        //    //{
+        //    //    EventBus.Publish(new GiveItemToken(_currentConversation.Item));
+        //    //    return;
+        //    //}
+        //    //自動分岐判定
+        //    foreach (var conversation in _currentConversation.Branches)
+        //    {
+        //        if (_runtime.CheckCondition(conversation))
+        //        {
+        //            _currentConversation = conversation.Next;
+        //            break;
+        //        }
+        //    }
+        //    _currentConversation = _currentConversation.Default;
+        //}
         foreach (var text in _currentConversation.Texts)
         {
             _queue.Enqueue(text);
@@ -162,12 +161,12 @@ public class InteractPresenter : ISubscribable
     {
         if (!_runningStreamingText)
         {
-            _stateMachine.Execute();
-            if (_queue == null || _queue.Count <= 0)
+            if (_currentParagraph == null)
             {
                 if (_currentConversation != null && _currentConversation.Finish)
                     FinishInteract();
             }
+            _stateMachine.Execute();
         }
         else
         {
@@ -180,7 +179,6 @@ public class InteractPresenter : ISubscribable
         if (_currentConversation == null)
         {
             _view?.CloseInteractWindow();
-            _queue = null;
             EventBus.Publish(new BackActionMapToken());
             return;
         }
@@ -188,9 +186,8 @@ public class InteractPresenter : ISubscribable
         if (_currentConversation.Finish)
         {
             _view?.CloseInteractWindow();
-            _queue = null;
-            _currentConversation = _currentConversation.Default;
             EventBus.Publish(new BackActionMapToken());
+            _currentConversation = _currentConversation.Default;
         }
         else
         {
@@ -227,11 +224,11 @@ public class InteractPresenter : ISubscribable
     public void OpenHotbar()
     {
         var item = _currentParagraph.Item.ItemLabel;
+        _runtime.GetItem(item);
+        ChangeState();
         if (_runtime.GotItem)
         {
-            _runtime.GetItem(item);
             _view?.CloseGetItemWindow();
-            ChangeState();
             EventBus.Publish(new GiveItemToken(_runtime.Hotbar));
             return;
         }
@@ -257,7 +254,7 @@ public class InteractPresenter : ISubscribable
     public void CloseHotbar()
     {
         if (_runtime.GotItem) return;
-        _runtime.GetItem(_currentParagraph.Item.ItemLabel);
+        _runtime.ChangeItem();
         EventBus.Publish(new GiveItemToken(_runtime.Hotbar));
         _view?.CloseHotbar();
         ChangeState();

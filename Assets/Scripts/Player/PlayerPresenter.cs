@@ -102,6 +102,16 @@ public class PlayerPresenter : ISubscribable
     {
 
     }
+
+    public void SelectInteractHotbar(int index)
+    {
+        EventBus.Publish(new SelectInteractHotbarToken(index));
+    }
+
+    public void MoveInteractHotbar(SlotMove index)
+    {
+        EventBus.Publish(new MoveInteractHotbarToken(index));
+    }
     #endregion
 
     public void RegisterInteractor(InteractableView interactor)
