@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class ChangeItemEnter : IEnterState
+public class FinishEnter : IEnterState
 {
     InteractPresenter _interactPresenter;
 
-    public ChangeItemEnter(InteractPresenter presenter)
+    public FinishEnter(InteractPresenter presenter)
     {
         _interactPresenter = presenter;
     }
@@ -12,19 +12,19 @@ public class ChangeItemEnter : IEnterState
     public void Entry()
     {
 #if UNITY_EDITOR
-        Debug.Log($"Entry {nameof(ChangeItemEnter)}");
+        Debug.Log($"Entry {nameof(FinishEnter)}");
 #endif
     }
 
     public void Exit()
     {
 #if UNITY_EDITOR
-        Debug.Log($"Exit {nameof(ChangeItemEnter)}");
+        Debug.Log($"Exit {nameof(FinishEnter)}");
 #endif
     }
 
     public void PushEnter()
     {
-        _interactPresenter?.CloseHotbar();
+        _interactPresenter?.FinishInteract();
     }
 }

@@ -57,13 +57,17 @@ public class InteractPresenter : ISubscribable
         if (_runtime.SetTalker(token.CharacterType, out _currentConversation))
         {
             UpdateInteract();
-            ChangeState();
         }
+        ChangeState();
     }
 
     public void ChangeState()
     {
-        if (!_queue.TryDequeue(out _currentParagraph)) return;
+        if (!_queue.TryDequeue(out _currentParagraph))
+        {
+            FinishInteract();
+            return;
+        }
         IEnterState state = null;
         switch (_currentParagraph.NodeType)
         {
@@ -83,27 +87,6 @@ public class InteractPresenter : ISubscribable
 
     void UpdateInteract()
     {
-        if (_currentConversation == null) return;
-        //テキストがないまたは既にテキストを流し終わった後
-        //if (_currentConversation.Texts == null || _currentConversation.Texts.Length <= 0 || (_queue != null && _queue.Count <= 0))
-        //{
-        //    ////アイテムを渡すインタラクトの場合はUIだけ表示
-        //    //if (_currentConversation.NodeType == NodeType.GiveItem)
-        //    //{
-        //    //    EventBus.Publish(new GiveItemToken(_currentConversation.Item));
-        //    //    return;
-        //    //}
-        //    //自動分岐判定
-        //    foreach (var conversation in _currentConversation.Branches)
-        //    {
-        //        if (_runtime.CheckCondition(conversation))
-        //        {
-        //            _currentConversation = conversation.Next;
-        //            break;
-        //        }
-        //    }
-        //    _currentConversation = _currentConversation.Default;
-        //}
         foreach (var text in _currentConversation.Texts)
         {
             _queue.Enqueue(text);
@@ -161,11 +144,6 @@ public class InteractPresenter : ISubscribable
     {
         if (!_runningStreamingText)
         {
-            if (_currentParagraph == null)
-            {
-                if (_currentConversation != null && _currentConversation.Finish)
-                    FinishInteract();
-            }
             _stateMachine.Execute();
         }
         else
@@ -174,7 +152,7 @@ public class InteractPresenter : ISubscribable
         }
     }
 
-    void FinishInteract()
+    public void FinishInteract()
     {
         if (_currentConversation == null)
         {
@@ -182,7 +160,7 @@ public class InteractPresenter : ISubscribable
             EventBus.Publish(new BackActionMapToken());
             return;
         }
-        _runtime.UpdateID(_currentConversation.CharacterType, _currentConversation.Default.ID);
+
         if (_currentConversation.Finish)
         {
             _view?.CloseInteractWindow();
@@ -191,8 +169,20 @@ public class InteractPresenter : ISubscribable
         }
         else
         {
+            //自動分岐判定
+            foreach (var conversation in _currentConversation.Branches)
+            {
+                if (_runtime.CheckCondition(conversation))
+                {
+                    _currentConversation = conversation.Next;
+                    break;
+                }
+            }
+            _currentConversation = _currentConversation.Default;
             UpdateInteract();
+            ChangeState();
         }
+        _runtime.UpdateID(_currentConversation.CharacterType, _currentConversation.ID);
     }
 
     void SetKey(SetFlagToken token)
@@ -224,11 +214,10 @@ public class InteractPresenter : ISubscribable
     public void OpenHotbar()
     {
         var item = _currentParagraph.Item.ItemLabel;
-        _runtime.GetItem(item);
-        ChangeState();
-        if (_runtime.GotItem)
+        if (_runtime.GetItem(item))
         {
             _view?.CloseGetItemWindow();
+            ChangeState();
             EventBus.Publish(new GiveItemToken(_runtime.Hotbar));
             return;
         }
@@ -239,21 +228,18 @@ public class InteractPresenter : ISubscribable
 
     void SelectSlot(SelectInteractHotbarToken token)
     {
-        if (_runtime.GotItem) return;
         var index = _runtime.SelectIndex(token.Index);
         _view?.ChangeSlot(index);
     }
 
     void MoveIndex(MoveInteractHotbarToken token)
     {
-        if (_runtime.GotItem) return;
         var index = _runtime.MoveIndex(token.Move);
         _view?.ChangeSlot(index);
     }
 
     public void CloseHotbar()
     {
-        if (_runtime.GotItem) return;
         _runtime.ChangeItem();
         EventBus.Publish(new GiveItemToken(_runtime.Hotbar));
         _view?.CloseHotbar();

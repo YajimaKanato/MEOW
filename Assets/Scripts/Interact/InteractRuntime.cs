@@ -1,5 +1,4 @@
 using MVPTools.Runtime;
-using static UnityEditor.Progress;
 
 public class InteractRuntime : IRuntime
 {
@@ -10,17 +9,6 @@ public class InteractRuntime : IRuntime
 
     public TextSpeed CurrentTextSpeed => _currentTextSpeed;
     public ItemLabel[] Hotbar => _hotbar;
-    public bool GotItem
-    {
-        get
-        {
-            for (int i = 0; i < _hotbar.Length - 1; i++)
-            {
-                if (_hotbar[i] == ItemLabel.None) return true;
-            }
-            return false;
-        }
-    }
 
     public InteractRuntime(InteractModel definition)
     {
@@ -113,16 +101,17 @@ public class InteractRuntime : IRuntime
         }
     }
 
-    public void GetItem(ItemLabel item)
+    public bool GetItem(ItemLabel item)
     {
         for (int i = 0; i < _hotbar.Length; i++)
         {
             if (_hotbar[i] == ItemLabel.None)
             {
                 _hotbar[i] = item;
-                return;
+                return true;
             }
         }
+        return false;
     }
 
     public void ChangeItem()

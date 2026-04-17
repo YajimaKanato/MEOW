@@ -12,11 +12,16 @@ public class GiveItemEnter : IEnterState
     public void Entry()
     {
         _interactPresenter?.GiveItem();
+#if UNITY_EDITOR
+        Debug.Log($"Entry {nameof(GiveItemEnter)}");
+#endif
     }
 
     public void Exit()
     {
-
+#if UNITY_EDITOR
+        Debug.Log($"Exit {nameof(GiveItemEnter)}");
+#endif
     }
 
     public void PushEnter()
