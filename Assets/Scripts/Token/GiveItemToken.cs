@@ -3,9 +3,9 @@ using MVPTools.Runtime;
 /// <summary>アイテムを渡すときのイベントトークン</summary>
 public readonly struct GiveItemToken : IToken
 {
-    public readonly ItemBase Item;
+    public readonly ItemLabel[] Item;
 
-    public GiveItemToken(ItemBase item)
+    public GiveItemToken(ItemLabel[] item)
     {
         Item = item;
     }

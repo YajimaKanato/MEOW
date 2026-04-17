@@ -14,15 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConversationAsset
   _characterType: 5
   _id: 0
-  _nodeType: 0
-  _finish: 0
-  _choiceType: 2
-  _choices: []
-  _branches: []
-  _default: {fileID: 11400000, guid: 4dc09e83934f5c849a54d631477919f1, type: 2}
+  _finish: 1
   _texts:
-  - _leftTalker: 6
+  - _nodeType: 0
+    _leftTalker: 6
     _rightTalker: 6
     _talker: 2
     _text: "\u4F55\u304B\u304C\u5165\u3063\u3066\u3044\u308B"
-  _item: {fileID: 0}
+    _item: {fileID: 0}
+  - _nodeType: 2
+    _leftTalker: 6
+    _rightTalker: 6
+    _talker: 2
+    _text: 
+    _item: {fileID: 11400000, guid: 324490e3d18e0214e91cdfa9afa73791, type: 2}
+  _default: {fileID: 11400000, guid: fe2c6c40ecd0efa48b5659d2068f8d5c, type: 2}
+  _branches: []
+  _choiceType: 2
+  _choices: []

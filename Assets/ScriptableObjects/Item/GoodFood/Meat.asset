@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GoodFood
   _itemType: 0
   _itemLabel: 0
+  _itemSprite: {fileID: -1894812325727148663, guid: b9dae369e7688be41826cc72f1f224c5, type: 3}
   _itemName: "\u8089"
   _itemInfo: "\u304A\u3044\u3057\u305D\u3046\u306A\u8089\r\n\u304A\u8179\u304C\u6E80\u305F\u3055\u308C\u305D\u3046\u3060"
   _saturate: 0

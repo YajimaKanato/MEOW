@@ -6,16 +6,15 @@ public partial class HotbarView
 {
     //Viewの表示部分を実装
     [SerializeField] Hotbar _ingameHotbar;
-    Dictionary<ItemLabel, Sprite> _spriteDict = new();
 
-    public void UpdateIngameHotbar(ItemBase[] items, int index)
+    public void UpdateIngameHotbar(ItemLabel[] items, int index)
     {
         var list = new Sprite[items.Length];
         for (int i = 0; i < items.Length; i++)
         {
-            if (items[i] == null) continue;
-            if (!_spriteDict.TryGetValue(items[i].ItemLabel, out var sprite)) continue;
-            list[i] = sprite;
+            if (items[i] == ItemLabel.None) continue;
+            if (!_itemList.TryGetItem(items[i], out var item)) continue;
+            list[i] = item.ItemSprite;
         }
         _ingameHotbar?.OpenHotbar(list, index);
     }

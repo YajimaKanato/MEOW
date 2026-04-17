@@ -10,12 +10,13 @@ public partial class HotbarView : ViewBase
     public override void Initialize()
     {
         _presenter = new HotbarPresenter(this, _model);
-        foreach (var item in _itemList.Items)
+        var hotbar = new ItemLabel[_model.Hotbar.Length];
+        for (int i = 0; i < hotbar.Length; i++)
         {
-            _spriteDict[item.ItemLabel] = item.ItemSprite;
+            hotbar[i] = _model.Hotbar[i] != null ? _model.Hotbar[i].ItemLabel : ItemLabel.None;
         }
 
-        UpdateIngameHotbar(_model.Hotbar, _model.DefaultIndex);
+        UpdateIngameHotbar(hotbar, _model.DefaultIndex);
         _presenter?.Subscribe();
     }
 

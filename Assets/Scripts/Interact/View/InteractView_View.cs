@@ -8,8 +8,8 @@ public partial class InteractView
 {
     [SerializeField] InteractWindow _interactWindow;
     [SerializeField] Hotbar _hotbar;
+    [SerializeField] GetItemWindow _getItemWindow;
     Dictionary<CharacterType, Sprite> _spriteDict = new();
-    Dictionary<ItemLabel, Sprite> _hotbarSpriteDict = new();
     Dictionary<CharacterType, string> _nameDict = new();
     //Viewの表示部分を実装
     public void OpenInteractWindow()
@@ -58,20 +58,30 @@ public partial class InteractView
         _interactWindow?.gameObject?.SetActive(false);
     }
 
-    public void OpenHotbar(ItemBase[] hotbar, int index)
+    public void GetItem(ItemLabel getItem)
     {
+        if(!_itemList.TryGetItem(getItem, out var item)) return;
+        _getItemWindow?.gameObject?.SetActive(true);
+        _getItemWindow?.GetItem(item.ItemSprite, item.ItemName, item.ItemInfo, false);
+    }
+
+    public void CloseGetItemWindow()
+    {
+        _getItemWindow?.gameObject.SetActive(false);
+    }
+
+    public void OpenHotbar(ItemLabel[] hotbar, ItemLabel getItem)
+    {
+        CloseGetItemWindow();
         var list = new Sprite[hotbar.Length];
         for (int i = 0; i < hotbar.Length; i++)
         {
-            if (hotbar[i] == null) continue;
-            if (!_hotbarSpriteDict.TryGetValue(hotbar[i].ItemLabel, out var sprite)) continue;
-            list[i] = sprite;
+            if (hotbar[i] == ItemLabel.None) continue;
+            if (!_itemList.TryGetItem(hotbar[i], out var item)) continue;
+            list[i] = item.ItemSprite;
         }
-        foreach (var item in _itemList.Items)
-        {
-            _hotbarSpriteDict[item.ItemLabel] = item.ItemSprite;
-        }
-        _hotbar?.OpenHotbar(list, index);
+        _hotbar?.gameObject?.SetActive(true);
+        _hotbar?.OpenHotbar(list, 0);
     }
 
     public void ChangeSlot(int index)
@@ -81,6 +91,6 @@ public partial class InteractView
 
     public void CloseHotbar()
     {
-        _hotbar?.CloseHotbar();
+        _hotbar?.gameObject?.SetActive(false);
     }
 }

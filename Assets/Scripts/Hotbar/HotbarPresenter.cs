@@ -52,11 +52,13 @@ public class HotbarPresenter : ISubscribable
 
     void UpdateHotbar(GetItemToken token)
     {
-        _view?.UpdateIngameHotbar(token.Hotbar, _runtime.CurrentIndex);
+        _runtime.UpdateHotbar(token.Hotbar);
+        _view?.UpdateIngameHotbar(_runtime.Hotbar, _runtime.CurrentIndex);
     }
 
     void UpdateHotbar(UseItemToken token)
     {
-        _view?.UpdateIngameHotbar(token.Hotbar, _runtime.CurrentIndex);
+        _runtime.UpdateHotbar(token.Hotbar);
+        _view?.UpdateIngameHotbar(_runtime.Hotbar, _runtime.CurrentIndex);
     }
 }

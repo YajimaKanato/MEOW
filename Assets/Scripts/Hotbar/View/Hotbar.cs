@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class Hotbar : MonoBehaviour
 {
-    [SerializeField] HotbarElement[] _hotbar;
-    [SerializeField] CanvasGroup _canvasGroup;
+    [SerializeField] protected HotbarElement[] _hotbar;
     int _currentIndex = 0;
 
     public void OpenHotbar(Sprite[] sprites, int index)
@@ -11,34 +10,19 @@ public class Hotbar : MonoBehaviour
         _currentIndex = index;
         for (int i = 0; i < _hotbar.Length; i++)
         {
-            _hotbar[i].GetItem(sprites[i]);
+            _hotbar[i].SetItem(sprites[i]);
             if (i == _currentIndex)
                 _hotbar[i].Select();
             else
                 _hotbar[i].Unselect();
         }
-        if (_canvasGroup) _canvasGroup.alpha = 1;
-    }
-
-    public void CloseHotbar()
-    {
-        if (_canvasGroup) _canvasGroup.alpha = 0;
     }
 
     public void ChangeSlot(int index)
     {
+        if (index < 0 || _hotbar.Length - 1 < index) return;
         _hotbar[_currentIndex]?.Unselect();
         _hotbar[index]?.Select();
         _currentIndex = index;
-    }
-
-    public void UseItem(int index)
-    {
-        _hotbar[index]?.UseItem();
-    }
-
-    public void GetItem(Sprite sprite, int index)
-    {
-        _hotbar[index]?.GetItem(sprite);
     }
 }

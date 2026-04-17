@@ -3,9 +3,9 @@ using MVPTools.Runtime;
 /// <summary>アイテムを獲得した時のイベントトークン</summary>
 public readonly struct GetItemToken : IToken
 {
-    public readonly ItemBase[] Hotbar;
+    public readonly ItemLabel[] Hotbar;
 
-    public GetItemToken(ItemBase[] hotbar)
+    public GetItemToken(ItemLabel[] hotbar)
     {
         Hotbar = hotbar;
     }

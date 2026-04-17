@@ -29,7 +29,7 @@ public class PlayerPresenter : ISubscribable
     {
         if (_subscribed) return;
         _subscribed = true;
-        //EventBus.Subscribe<>(this,);
+        EventBus.Subscribe<GiveItemToken>(this, GetItem);
     }
 
     public void Unsubscribe()
@@ -81,14 +81,8 @@ public class PlayerPresenter : ISubscribable
 
     void GetItem(GiveItemToken token)
     {
-        if (!_runtime.TryGetItem(token.Item))
-        {
-            EventBus.Publish(new OpenInteractHotbarToken(_runtime.Hotbar, token.Item));
-        }
-        else
-        {
-
-        }
+        _runtime.GetItem(token.Item);
+        EventBus.Publish(new GetItemToken(_runtime.Hotbar));
     }
 
     public void Interact()
@@ -115,14 +109,14 @@ public class PlayerPresenter : ISubscribable
         if (interactor == null) return;
         if (!_interactorList.Contains(interactor)) _interactorList.Add(interactor);
         _nearestInteractor = interactor;
-        _nearestInteractor.Selected();
+        _nearestInteractor?.Selected();
     }
 
     public void RemoveInteractor(InteractableView interactor)
     {
         if (interactor == null) return;
         if (_interactorList.Contains(interactor)) _interactorList.Remove(interactor);
-        _nearestInteractor.Unselected();
+        _nearestInteractor?.Unselected();
         _nearestInteractor = null;
     }
 

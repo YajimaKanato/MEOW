@@ -3,16 +3,38 @@ using MVPTools.Runtime;
 public class InteractRuntime : IRuntime
 {
     InteractManager _manager;
+    ItemLabel[] _hotbar;
     TextSpeed _currentTextSpeed;
     int _currentIndex;
 
     public TextSpeed CurrentTextSpeed => _currentTextSpeed;
+    public ItemLabel[] Hotbar => _hotbar;
+    public bool GotItem
+    {
+        get
+        {
+            foreach (var item in _hotbar)
+            {
+                if (item == ItemLabel.None) return true;
+            }
+            return false;
+        }
+    }
 
     public InteractRuntime(InteractModel definition)
     {
         _currentTextSpeed = definition.TextSpeed;
         _currentIndex = definition.Hotbar.DefaultIndex;
         _manager = new InteractManager(definition.Conversations);
+        var hotbar = definition.Hotbar.Hotbar;
+        _hotbar = new ItemLabel[hotbar.Length];
+        for (int i = 0; i < hotbar.Length; i++)
+        {
+            if (i == hotbar.Length - 1)
+                _hotbar[i] = ItemLabel.None;
+            else
+                _hotbar[i] = hotbar[i] != null ? hotbar[i].ItemLabel : ItemLabel.None;
+        }
     }
 
     public void Dispose()
@@ -79,5 +101,28 @@ public class InteractRuntime : IRuntime
     {
         _currentIndex += (int)move;
         return _currentIndex;
+    }
+
+    public void UpdateHotbar(ItemLabel[] hotbar)
+    {
+        if (hotbar == null) return;
+        for (int i = 0; i < hotbar.Length; i++)
+        {
+            _hotbar[i] = hotbar[i];
+        }
+    }
+
+    public void GetItem(ItemLabel item)
+    {
+        for (int i = 0; i < _hotbar.Length - 1; i++)
+        {
+            if (_hotbar[i] == ItemLabel.None)
+            {
+                _hotbar[i] = item;
+                return;
+            }
+        }
+        _hotbar[_hotbar.Length - 1] = _hotbar[_currentIndex];
+        _hotbar[_currentIndex] = item;
     }
 }

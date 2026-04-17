@@ -2,7 +2,7 @@ using MVPTools.Runtime;
 
 public class PlayerRuntime : IRuntime
 {
-    ItemBase[] _hotbar;
+    ItemLabel[] _hotbar;
     float _walkSpeed;
     float _runSpeed;
     float _jumpPower;
@@ -11,7 +11,7 @@ public class PlayerRuntime : IRuntime
     bool _isGround;
     bool _isFalling;
 
-    public ItemBase[] Hotbar => _hotbar;
+    public ItemLabel[] Hotbar => _hotbar;
     public float JumpPower => _jumpPower;
     public bool IsGround => _isGround;
     public bool IsFalling => _isFalling;
@@ -19,10 +19,10 @@ public class PlayerRuntime : IRuntime
     public PlayerRuntime(PlayerModel model)
     {
         var hotbar = model.Hotbar.Hotbar;
-        _hotbar = new ItemBase[hotbar.Length];
+        _hotbar = new ItemLabel[hotbar.Length];
         for (int i = 0; i < hotbar.Length; i++)
         {
-            _hotbar[i] = hotbar[i];
+            _hotbar[i] = hotbar[i] != null ? hotbar[i].ItemLabel : ItemLabel.None;
         }
         _walkSpeed = model.WalkSpeed;
         _runSpeed = model.RunSpeed;
@@ -79,36 +79,21 @@ public class PlayerRuntime : IRuntime
     }
 
     /// <summary>
-    /// アイテム獲得が成功したかどうかを判定するメソッド
-    /// </summary>
-    /// <returns>成功したかどうか</returns>
-    public bool TryGetItem(ItemBase item)
-    {
-        if (_currentIndex > _hotbar.Length - 1 || _currentIndex < 0) return false;
-        if (item == null) return false;
-        for (int i = 0; i < _hotbar.Length; i++)
-        {
-            if (_hotbar[i].ItemLabel == ItemLabel.None)
-            {
-                GetItem(item, i);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /// <summary>
     /// アイテムを獲得するメソッド
     /// </summary>
     /// <param name="item">獲得したアイテム</param>
     /// <param name="index">格納するインデックス</param>
     /// <returns>交換したアイテム</returns>
-    public ItemBase GetItem(ItemBase item, int index)
+    public ItemLabel GetItem(ItemLabel[] item)
     {
-        if (index > _hotbar.Length - 1 || index < 0) return null;
-        if (item == null) return null;
-        var returnItem = _hotbar[index];
-        _hotbar[index] = item;
+        var returnItem = ItemLabel.None;
+        for (int i = 0; i < item.Length; i++)
+        {
+            if (i < item.Length - 1)
+                _hotbar[i] = item[i];
+            else
+                returnItem = item[i];
+        }
         return returnItem;
     }
 
@@ -116,11 +101,11 @@ public class PlayerRuntime : IRuntime
     /// アイテムを使用するメソッド
     /// </summary>
     /// <returns>使用したアイテム</returns>
-    public ItemBase UseItem()
+    public ItemLabel UseItem()
     {
-        if (_currentIndex > _hotbar.Length - 1 || _currentIndex < 0) return null;
+        if (_currentIndex > _hotbar.Length - 1 || _currentIndex < 0) return ItemLabel.None;
         var item = _hotbar[_currentIndex];
-        _hotbar[_currentIndex] = null;
+        _hotbar[_currentIndex] = ItemLabel.None;
         return item;
     }
 }
