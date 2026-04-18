@@ -84,17 +84,13 @@ public class PlayerRuntime : IRuntime
     /// <param name="item">獲得したアイテム</param>
     /// <param name="index">格納するインデックス</param>
     /// <returns>交換したアイテム</returns>
-    public ItemLabel GetItem(ItemLabel[] item)
+    public void GetItem(ItemLabel[] item)
     {
-        var returnItem = ItemLabel.None;
         for (int i = 0; i < item.Length; i++)
         {
             if (i < item.Length - 1)
                 _hotbar[i] = item[i];
-            else
-                returnItem = item[i];
         }
-        return returnItem;
     }
 
     /// <summary>

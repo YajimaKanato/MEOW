@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HotbarModel
   _hotbar:
   - {fileID: 11400000, guid: 324490e3d18e0214e91cdfa9afa73791, type: 2}
+  - {fileID: 11400000, guid: 9e572e59bfca10d4d826a3a898a62cfa, type: 2}
+  - {fileID: 11400000, guid: 2178cecd33beb044c8197239304d5d6e, type: 2}
   - {fileID: 11400000, guid: 324490e3d18e0214e91cdfa9afa73791, type: 2}
-  - {fileID: 11400000, guid: 324490e3d18e0214e91cdfa9afa73791, type: 2}
-  - {fileID: 11400000, guid: 324490e3d18e0214e91cdfa9afa73791, type: 2}
-  - {fileID: 11400000, guid: 324490e3d18e0214e91cdfa9afa73791, type: 2}
-  - {fileID: 11400000, guid: 324490e3d18e0214e91cdfa9afa73791, type: 2}
+  - {fileID: 11400000, guid: 9e572e59bfca10d4d826a3a898a62cfa, type: 2}
+  - {fileID: 11400000, guid: 2178cecd33beb044c8197239304d5d6e, type: 2}
   _defaultIndex: 0

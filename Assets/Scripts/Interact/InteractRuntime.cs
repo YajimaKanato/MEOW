@@ -103,7 +103,7 @@ public class InteractRuntime : IRuntime
 
     public bool GetItem(ItemLabel item)
     {
-        for (int i = 0; i < _hotbar.Length; i++)
+        for (int i = 0; i < _hotbar.Length - 1; i++)
         {
             if (_hotbar[i] == ItemLabel.None)
             {
@@ -111,6 +111,7 @@ public class InteractRuntime : IRuntime
                 return true;
             }
         }
+        _hotbar[_hotbar.Length - 1] = item;
         return false;
     }
 
