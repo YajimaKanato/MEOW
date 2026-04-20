@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ba47ea4fbee269488b0e6a5b3da43ef, type: 3}
-  m_Name: TrashCan
+  m_Name: TrashCanChapter
   m_EditorClassIdentifier: Assembly-CSharp::InteractableModel
-  _characterType: 5
+  _characterType: 6
+  _chapter: 0
   _characterName: 
   _talkingSprite: {fileID: 0}
-  _silentSprite: {fileID: 0}
+  _item: {fileID: 11400000, guid: 2178cecd33beb044c8197239304d5d6e, type: 2}

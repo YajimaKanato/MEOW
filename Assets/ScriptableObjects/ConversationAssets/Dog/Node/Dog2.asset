@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6df32026bdc67dd4aa5f260b31148c05, type: 3}
   m_Name: Dog2
   m_EditorClassIdentifier: Assembly-CSharp::ConversationAsset
-  _characterType: 1
+  _characterType: 2
   _id: 1
-  _nodeType: 0
   _finish: 0
-  _choiceType: 2
-  _choices: []
+  _texts: []
+  _default: {fileID: 11400000, guid: 29123d7a00266f04e9085ca44a956e41, type: 2}
   _branches:
   - {fileID: 11400000, guid: 4a653ec892754fb49a4535060d3b8a30, type: 2}
-  _default: {fileID: 11400000, guid: 29123d7a00266f04e9085ca44a956e41, type: 2}
-  _texts: []
+  _choiceType: 2
+  _choices: []

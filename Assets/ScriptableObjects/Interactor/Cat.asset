@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ba47ea4fbee269488b0e6a5b3da43ef, type: 3}
   m_Name: Cat
   m_EditorClassIdentifier: Assembly-CSharp::InteractableModel
-  _characterType: 2
+  _characterType: 3
+  _chapter: 0
   _characterName: "\u91CE\u826F\u732B"
   _talkingSprite: {fileID: 0}
-  _silentSprite: {fileID: 0}
+  _item: {fileID: 0}

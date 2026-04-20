@@ -10,23 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6df32026bdc67dd4aa5f260b31148c05, type: 3}
-  m_Name: TrashCan1
+  m_Name: DropItem1
   m_EditorClassIdentifier: Assembly-CSharp::ConversationAsset
-  _characterType: 6
+  _characterType: 7
   _id: 0
   _finish: 1
   _texts:
-  - _nodeType: 0
-    _leftTalker: 0
-    _rightTalker: 0
-    _talker: 2
-    _text: "\u4F55\u304B\u304C\u5165\u3063\u3066\u3044\u308B"
   - _nodeType: 2
     _leftTalker: 0
     _rightTalker: 0
     _talker: 2
     _text: 
-  _default: {fileID: 11400000, guid: fe2c6c40ecd0efa48b5659d2068f8d5c, type: 2}
-  _branches: []
+  _default: {fileID: 11400000}
+  _branches:
+  - {fileID: 0}
   _choiceType: 2
   _choices: []

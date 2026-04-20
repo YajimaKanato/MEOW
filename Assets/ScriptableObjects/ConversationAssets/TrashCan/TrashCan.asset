@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff60c693a431aa04d8222d67a7e12afb, type: 3}
   m_Name: TrashCan
   m_EditorClassIdentifier: Assembly-CSharp::ConversationList
-  _talkerType: 5
+  _talkerType: 6
   _startID: 0
   _startConversations:
   - {fileID: 11400000, guid: 2a7736a526582bf4d967d79713e71529, type: 2}
-  - {fileID: 11400000, guid: 4dc09e83934f5c849a54d631477919f1, type: 2}
   - {fileID: 11400000, guid: fe2c6c40ecd0efa48b5659d2068f8d5c, type: 2}
