@@ -10,7 +10,7 @@ public class HotbarPresenter : ISubscribable
     public HotbarPresenter(HotbarView view, HotbarModel model)
     {
         _view = view;
-        _runtime = model.CreateRuntime();
+        _runtime = new HotbarRuntime(model);
         if (_runtime == null) throw new System.NullReferenceException(nameof(_runtime));
     }
 
@@ -52,13 +52,15 @@ public class HotbarPresenter : ISubscribable
 
     void UpdateHotbar(GetItemToken token)
     {
-        _runtime.UpdateHotbar(token.Hotbar);
+        if (RuntimeStorage.TryGetData(token.ID, out var data) && data is PlayerRuntime typed)
+            _runtime.UpdateHotbar(typed.Hotbar);
         _view?.UpdateIngameHotbar(_runtime.Hotbar, _runtime.CurrentIndex);
     }
 
     void UpdateHotbar(UseItemToken token)
     {
-        _runtime.UpdateHotbar(token.Hotbar);
+        if (RuntimeStorage.TryGetData(token.ID, out var data) && data is PlayerRuntime typed)
+            _runtime.UpdateHotbar(typed.Hotbar);
         _view?.UpdateIngameHotbar(_runtime.Hotbar, _runtime.CurrentIndex);
     }
 }

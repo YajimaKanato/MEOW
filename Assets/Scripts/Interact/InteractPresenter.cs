@@ -12,6 +12,7 @@ public class InteractPresenter : ISubscribable
     Queue<Paragraph> _queue = new();
     Paragraph _currentParagraph;
     InteractStateMachine _stateMachine = new();
+    string _currentInteractor;
     bool _subscribed;
     bool _runningStreamingText;
     bool _gaveItem;
@@ -20,7 +21,7 @@ public class InteractPresenter : ISubscribable
     public InteractPresenter(InteractView view, InteractModel model)
     {
         _view = view;
-        _runtime = model.CreateRuntime();
+        _runtime = new InteractRuntime(model);
         if (_runtime == null) throw new System.NullReferenceException(nameof(_runtime));
     }
 
@@ -54,6 +55,7 @@ public class InteractPresenter : ISubscribable
 
     void StartInteract(StartInteractToken token)
     {
+        _currentInteractor = token.ID;
         if (_runtime.SetTalker(token.CharacterType, out _currentConversation))
         {
             UpdateInteract();
@@ -197,23 +199,27 @@ public class InteractPresenter : ISubscribable
 
     public void GiveItem()
     {
-        var item = _currentParagraph.Item.ItemLabel;
+        if (!RuntimeStorage.TryGetData(_currentInteractor, out var data) || !(data is InteractableRuntime typed)) return;
+        var item = typed.Item;
         _view?.GetItem(item);
     }
 
     void UpdateHotbar(GetItemToken token)
     {
-        _runtime.UpdateHotbar(token.Hotbar);
+        if (RuntimeStorage.TryGetData(token.ID, out var data) && data is PlayerRuntime typed)
+            _runtime.UpdateHotbar(typed.Hotbar);
     }
 
     void UpdateHotbar(UseItemToken token)
     {
-        _runtime.UpdateHotbar(token.Hotbar);
+        if (RuntimeStorage.TryGetData(token.ID, out var data) && data is PlayerRuntime typed)
+            _runtime.UpdateHotbar(typed.Hotbar);
     }
 
     public void OpenHotbar()
     {
-        var item = _currentParagraph.Item.ItemLabel;
+        if (!RuntimeStorage.TryGetData(_currentInteractor, out var data) || data is not InteractableRuntime typed) return;
+        var item = typed.Item;
         if (_runtime.GetItem(item))
         {
             _view?.CloseGetItemWindow();
@@ -241,6 +247,7 @@ public class InteractPresenter : ISubscribable
     public void CloseHotbar()
     {
         _runtime.ChangeItem();
+        EventBus.Publish(new DropItemToken(_currentInteractor, _runtime.Hotbar[_runtime.Hotbar.Length - 1]));
         EventBus.Publish(new GiveItemToken(_runtime.Hotbar));
         _view?.CloseHotbar();
         ChangeState();

@@ -8,6 +8,7 @@ public partial class PlayerView : ViewBase
     //Playerの核ファイル
     [SerializeField] InputActionAsset _actionAsset;
     [SerializeField] PlayerModel _model;
+    [SerializeField] CharacterType _characterType = CharacterType.Player;
     [SerializeField] LayerMask _groundLayer;
     [SerializeField] Vector3 _groundLineOffsetY = new Vector2(0, -0.5f);
     InputActionMap _playerMap;
@@ -37,6 +38,8 @@ public partial class PlayerView : ViewBase
     Vector2 _groundLineStart;
     Vector2 _groundLineEnd;
     bool _subscribed;
+
+    public override string ID => _characterType.ToString();
 
     [ContextMenu("Initialize")]
     public override void Initialize()
@@ -85,7 +88,7 @@ public partial class PlayerView : ViewBase
         _selectItem = _playerMap.FindAction("SelectItem");
         _nextItem = _playerMap.FindAction("NextItem");
         _backItem = _playerMap.FindAction("BackItem");
-        _menu = _playerMap.FindAction("Menu"); 
+        _menu = _playerMap.FindAction("Menu");
         //Interact
         _interactMap = _actionAsset.FindActionMap("Interact");
         _enter = _interactMap.FindAction("Enter");

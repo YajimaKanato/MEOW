@@ -1,6 +1,6 @@
 using MVPTools.Runtime;
 
-public class PlayerRuntime : IRuntime
+public class PlayerRuntime : IRuntime, IData
 {
     ItemLabel[] _hotbar;
     float _walkSpeed;
@@ -16,6 +16,8 @@ public class PlayerRuntime : IRuntime
     public bool IsGround => _isGround;
     public bool IsFalling => _isFalling;
 
+    public string ID { get; private set; }
+
     public PlayerRuntime(PlayerModel model)
     {
         var hotbar = model.Hotbar.Hotbar;
@@ -27,6 +29,7 @@ public class PlayerRuntime : IRuntime
         _walkSpeed = model.WalkSpeed;
         _runSpeed = model.RunSpeed;
         _jumpPower = model.JumpPower;
+        ID = model.ID;
     }
 
     public void Dispose()

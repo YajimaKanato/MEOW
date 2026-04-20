@@ -36,12 +36,10 @@ public class Paragraph
     [SerializeField] CharacterType _rightTalker;
     [SerializeField] CurrentTalker _talker;
     [SerializeField, TextArea] string _text;
-    [SerializeField] ItemBase _item;
 
     public NodeType NodeType => _nodeType;
     public CharacterType LeftTalker => _leftTalker;
     public CharacterType RightTalker => _rightTalker;
     public CurrentTalker TalkerType => _talker;
     public string Text => _text;
-    public ItemBase Item => _item;
 }

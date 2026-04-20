@@ -10,7 +10,7 @@ public class ActionMapPresenter : ISubscribable
     public ActionMapPresenter(ActionMapView view, ActionMapModel model)
     {
         _view = view;
-        _runtime = model.CreateRuntime();
+        _runtime = new ActionMapRuntime(model);
         NextActionMap(new NextActionMapToken(ActionMap.None));
     }
 

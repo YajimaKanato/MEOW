@@ -3,14 +3,22 @@ using UnityEngine;
 
 public class InteractablePresenter : ISubscribable
 {
-    InteractableView _view;
-    InteractableRuntime _runtime;
+    protected InteractableView _view;
+    protected InteractableRuntime _runtime;
     bool _subscribed;
 
     public InteractablePresenter(InteractableView view, InteractableModel model)
     {
         _view = view;
-        _runtime = model.CreateRuntime();
+        if (!RuntimeStorage.TryGetData(view.ID, out var data) || !(data is InteractableRuntime typed))
+        {
+            _runtime = new InteractableRuntime(model);
+            RuntimeStorage.RegisterData(view.ID, _runtime);
+        }
+        else
+        {
+            _runtime = typed;
+        }
     }
 
     public void Dispose()
@@ -20,11 +28,11 @@ public class InteractablePresenter : ISubscribable
         Unsubscribe();
     }
 
-    public void Subscribe()
+    public virtual void Subscribe()
     {
         if (_subscribed) return;
         _subscribed = true;
-        //EventBus.Subscribe<>(this,);
+        EventBus.Subscribe<DropItemToken>(this, DropItem);
     }
 
     public void Unsubscribe()
@@ -36,8 +44,13 @@ public class InteractablePresenter : ISubscribable
 
     public void Interact()
     {
-        if (_runtime == null) return;
         var character = _runtime.CharacterType;
-        EventBus.Publish(new StartInteractToken(character));
+        EventBus.Publish(new StartInteractToken(_view.ID, character));
+    }
+
+    void DropItem(DropItemToken token)
+    {
+        if (token.ID != _view.ID) return;
+        _view?.DropItem(token.Item);
     }
 }

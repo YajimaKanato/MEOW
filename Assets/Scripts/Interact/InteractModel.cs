@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "InteractModel", menuName = "Model/InteractModel")]
-public class InteractModel : ScriptableObject, IModel<InteractRuntime>
+public class InteractModel : ScriptableObject
 {
     [SerializeField] Interactables _interactables;
     [SerializeField] ConversationList[] _conversations;
@@ -14,9 +14,4 @@ public class InteractModel : ScriptableObject, IModel<InteractRuntime>
     public ConversationList[] Conversations => _conversations;
     public HotbarModel Hotbar => _hotbar;
     public TextSpeed TextSpeed => _textSpeed;
-
-    public InteractRuntime CreateRuntime()
-    {
-        return new InteractRuntime(this);
-    }
 }

@@ -60,7 +60,7 @@ public partial class InteractView
 
     public void GetItem(ItemLabel getItem)
     {
-        if(!_itemList.TryGetItem(getItem, out var item)) return;
+        if (!_itemList.TryGetItem(getItem, out var item)) return;
         _getItemWindow?.gameObject?.SetActive(true);
         _getItemWindow?.GetItem(item.ItemSprite, item.ItemName, item.ItemInfo, false);
     }

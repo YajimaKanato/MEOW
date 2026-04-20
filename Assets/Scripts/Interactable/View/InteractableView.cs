@@ -4,8 +4,12 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public partial class InteractableView : ViewBase
 {
-    [SerializeField] InteractableModel _model;
-    InteractablePresenter _presenter;
+    [SerializeField] protected InteractableModel _model;
+    [SerializeField] CharacterType _characterType;
+    [SerializeField] uint _num;
+    protected InteractablePresenter _presenter;
+
+    public override string ID => _characterType.ToString() + _num;
 
     public override void Initialize()
     {
@@ -13,6 +17,7 @@ public partial class InteractableView : ViewBase
         _presenter?.Subscribe();
         GetComponent<BoxCollider2D>().isTrigger = true;
         tag = "Interactor";
+        _dropItem?.gameObject?.SetActive(false);
     }
 
     private void OnEnable()

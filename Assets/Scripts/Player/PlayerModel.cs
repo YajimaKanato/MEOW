@@ -2,7 +2,7 @@ using MVPTools.Runtime;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerModel", menuName = "Model/PlayerModel")]
-public class PlayerModel : ScriptableObject, IModel<PlayerRuntime>
+public class PlayerModel : ScriptableObject, IData
 {
     [SerializeField, Min(0.1f)] float _walkSpeed = 5;
     [SerializeField, Min(0.1f)] float _runSpeed = 7;
@@ -15,8 +15,5 @@ public class PlayerModel : ScriptableObject, IModel<PlayerRuntime>
     public float JumpPower => _jumpPower;
     public HotbarModel Hotbar => _hotbar;
 
-    public PlayerRuntime CreateRuntime()
-    {
-        return new PlayerRuntime(this);
-    }
+    public string ID => CharacterType.Player.ToString();
 }

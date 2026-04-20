@@ -10,7 +10,7 @@ public class MenuPresenter : ISubscribable
     public MenuPresenter(MenuView view, MenuModel model)
     {
         _view = view;
-        _runtime = model.CreateRuntime();
+        _runtime = new MenuRuntime(model);
     }
 
     public void Dispose()

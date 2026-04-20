@@ -10,7 +10,7 @@ public class TitlePresenter : ISubscribable
     public TitlePresenter(TitleView view, TitleModel model)
     {
         _view = view;
-        _runtime = model.CreateRuntime();
+        _runtime = new TitleRuntime(model);
     }
 
     public void Dispose()
