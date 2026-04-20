@@ -224,6 +224,7 @@ public class InteractPresenter : ISubscribable
         {
             _view?.CloseGetItemWindow();
             ChangeState();
+            EventBus.Publish(new DropItemToken(_currentInteractor, _runtime.Hotbar[_runtime.Hotbar.Length - 1]));
             EventBus.Publish(new GiveItemToken(_runtime.Hotbar));
             return;
         }

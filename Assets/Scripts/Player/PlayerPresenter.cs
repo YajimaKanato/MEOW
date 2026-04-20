@@ -90,6 +90,12 @@ public class PlayerPresenter : ISubscribable
         EventBus.Publish(new GetItemToken(_view.ID));
     }
 
+    public void UseItem()
+    {
+        _runtime.UseItem();
+        EventBus.Publish(new UseItemToken(_view.ID));
+    }
+
     public void Interact()
     {
         _calculator?.NearestInteractor.Interact();

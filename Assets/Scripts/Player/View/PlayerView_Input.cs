@@ -34,7 +34,7 @@ public partial class PlayerView
 
     void UseItem(InputAction.CallbackContext ctx)
     {
-
+        _presenter?.UseItem();
     }
 
     void SelectItem(InputAction.CallbackContext ctx)
