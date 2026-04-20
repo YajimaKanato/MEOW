@@ -1,10 +1,12 @@
 using MVPTools.Runtime;
 using UnityEngine;
+using UnityEngine.UI;
 
 public partial class InteractView : ViewBase
 {
     [SerializeField] ItemList _itemList;
     [SerializeField] InteractModel _model;
+    [SerializeField] Image _back;
     InteractPresenter _presenter;
 
     public override void Initialize()
@@ -20,6 +22,7 @@ public partial class InteractView : ViewBase
         CloseGetItemWindow();
         CloseHotbar();
         CloseInteractWindow();
+        if (_back != null) _back.enabled = false;
     }
 
     private void OnEnable()

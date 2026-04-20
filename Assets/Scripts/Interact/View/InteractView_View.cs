@@ -12,6 +12,16 @@ public partial class InteractView
     Dictionary<CharacterType, Sprite> _spriteDict = new();
     Dictionary<CharacterType, string> _nameDict = new();
     //Viewの表示部分を実装
+    public void ActivateBack()
+    {
+        if (_back != null) _back.enabled = true;
+    }
+
+    void InactivateBack()
+    {
+        if (_back != null) _back.enabled = false;
+    }
+
     public void OpenInteractWindow()
     {
         if (_interactWindow.gameObject.activeSelf) return;
@@ -55,6 +65,7 @@ public partial class InteractView
 
     public void CloseInteractWindow()
     {
+        InactivateBack();
         _interactWindow?.gameObject?.SetActive(false);
     }
 

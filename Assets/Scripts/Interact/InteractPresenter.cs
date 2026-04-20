@@ -61,6 +61,7 @@ public class InteractPresenter : ISubscribable
             UpdateInteract();
         }
         ChangeState();
+        _view?.ActivateBack();
     }
 
     public void ChangeState()
