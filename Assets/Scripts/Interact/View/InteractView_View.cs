@@ -7,10 +7,12 @@ using UnityEngine;
 public partial class InteractView
 {
     [SerializeField] InteractWindow _interactWindow;
-    [SerializeField] Hotbar _hotbar;
     [SerializeField] GetItemWindow _getItemWindow;
+    [SerializeField] ChoiceUI[] _choices;
     Dictionary<CharacterType, Sprite> _spriteDict = new();
     Dictionary<CharacterType, string> _nameDict = new();
+    Dictionary<NodeType, Selectable> _selectableDict = new();
+    Selectable _currentSelectable;
     //Viewの表示部分を実装
     public void ActivateBack()
     {
@@ -81,27 +83,32 @@ public partial class InteractView
         _getItemWindow?.gameObject.SetActive(false);
     }
 
-    public void OpenHotbar(ItemLabel[] hotbar, ItemLabel getItem)
+    public void OpenHotbar(NodeType nodeType)
     {
-        CloseGetItemWindow();
-        var list = new Sprite[hotbar.Length];
-        for (int i = 0; i < hotbar.Length; i++)
-        {
-            if (hotbar[i] == ItemLabel.None) continue;
-            if (!_itemList.TryGetItem(hotbar[i], out var item)) continue;
-            list[i] = item.ItemSprite;
-        }
-        _hotbar?.gameObject?.SetActive(true);
-        _hotbar?.OpenHotbar(list, 0);
+        _selectableDict.TryGetValue(nodeType, out _currentSelectable);
+    }
+
+    public void SetSelect(ItemLabel item, string text, int index)
+    {
+        if (!_itemList.TryGetItem(item, out var sprite)) return;
+        _currentSelectable.SetElements(sprite.ItemSprite, text, index);
     }
 
     public void ChangeSlot(int index)
     {
-        _hotbar?.ChangeSlot(index);
     }
 
     public void CloseHotbar()
     {
-        _hotbar?.gameObject?.SetActive(false);
+    }
+
+    [Serializable]
+    class ChoiceUI
+    {
+        [SerializeField] NodeType _nodeType;
+        [SerializeField] Selectable _ui;
+
+        public NodeType NodeType => _nodeType;
+        public Selectable UI => _ui;
     }
 }

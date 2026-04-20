@@ -53,8 +53,8 @@ MonoBehaviour:
   _model: {fileID: 11400000, guid: 53339c61bf17a2344ab2363369dd712f, type: 2}
   _back: {fileID: 9114523878063771106}
   _interactWindow: {fileID: 2758658073422038283}
-  _hotbar: {fileID: 982638261027074723}
   _getItemWindow: {fileID: 6498784881732116765}
+  _choices: []
 --- !u!1001 &1676304962816768298
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -450,17 +450,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e722b56c03c36a4bb0063780a7721d0, type: 3}
---- !u!114 &982638261027074723 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3443338741448357267, guid: 9e722b56c03c36a4bb0063780a7721d0, type: 3}
-  m_PrefabInstance: {fileID: 2479858444109563696}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72bb894a8238ea34d8f674e4beba2912, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractHotbar
 --- !u!224 &6469966568957512473 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8909186920420658217, guid: 9e722b56c03c36a4bb0063780a7721d0, type: 3}

@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class FinishEnter : InteractStateBase
+public class ChangeItemState : InteractStateBase
 {
-    public FinishEnter(InteractView view, InteractPresenter presenter, InteractRuntime runtime) : base(view, presenter, runtime)
+    public ChangeItemState(InteractView view, InteractPresenter presenter, InteractRuntime runtime) : base(view, presenter, runtime)
     {
     }
 

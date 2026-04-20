@@ -16,7 +16,7 @@ MonoBehaviour:
   _id: 0
   _finish: 1
   _texts:
-  - _nodeType: 2
+  - _nodeType: 3
     _leftTalker: 0
     _rightTalker: 0
     _talker: 2

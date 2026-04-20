@@ -52,15 +52,15 @@ public class HotbarPresenter : ISubscribable
 
     void UpdateHotbar(GetItemToken token)
     {
-        if (RuntimeStorage.TryGetData(token.ID, out var data) && data is PlayerRuntime typed)
-            _runtime.UpdateHotbar(typed.Hotbar);
+        if (RuntimeStorage.TryGetData<PlayerRuntime>(token.ID, out var data))
+            _runtime.UpdateHotbar(data.Hotbar);
         _view?.UpdateIngameHotbar(_runtime.Hotbar, _runtime.CurrentIndex);
     }
 
     void UpdateHotbar(UseItemToken token)
     {
-        if (RuntimeStorage.TryGetData(token.ID, out var data) && data is PlayerRuntime typed)
-            _runtime.UpdateHotbar(typed.Hotbar);
+        if (RuntimeStorage.TryGetData<PlayerRuntime>(token.ID, out var data))
+            _runtime.UpdateHotbar(data.Hotbar);
         _view?.UpdateIngameHotbar(_runtime.Hotbar, _runtime.CurrentIndex);
     }
 }

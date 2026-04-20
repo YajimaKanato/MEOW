@@ -5,14 +5,14 @@ public class DropItemPresenter : InteractablePresenter
 {
     public DropItemPresenter(DropItemView view, InteractableModel model) : base(view, model)
     {
-        if (!RuntimeStorage.TryGetData(view.ID, out var data) || !(data is DropItemRuntime typed))
+        if (!RuntimeStorage.TryGetData<DropItemRuntime>(view.ID, out var data))
         {
             _runtime = new DropItemRuntime(model);
             RuntimeStorage.RegisterData(view.ID, _runtime);
         }
         else
         {
-            _runtime = typed;
+            _runtime = data;
         }
     }
 

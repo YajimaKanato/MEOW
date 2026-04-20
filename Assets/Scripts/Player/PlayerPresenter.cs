@@ -12,14 +12,14 @@ public class PlayerPresenter : ISubscribable
     {
         _view = view;
         _calculator = new(_view.gameObject);
-        if (!RuntimeStorage.TryGetData(view.ID, out var data) || !(data is PlayerRuntime typed))
+        if (!RuntimeStorage.TryGetData<PlayerRuntime>(view.ID, out var data))
         {
             _runtime = new PlayerRuntime(model);
             RuntimeStorage.RegisterData(view.ID, _runtime);
         }
         else
         {
-            _runtime = typed;
+            _runtime = data;
         }
     }
 
@@ -86,7 +86,7 @@ public class PlayerPresenter : ISubscribable
 
     void GetItem(GiveItemToken token)
     {
-        _runtime.GetItem(token.Item);
+        _runtime.GetItem(token.Item, token.Index);
         EventBus.Publish(new GetItemToken(_view.ID));
     }
 

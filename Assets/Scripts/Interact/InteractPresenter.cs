@@ -11,6 +11,11 @@ public class InteractPresenter : ISubscribable
     ConversationAsset _currentConversation;
     Queue<Paragraph> _queue = new();
     Paragraph _currentParagraph;
+    ConversationState _conversation;
+    GiveItemState _giveItem;
+    ChangeItemState _changeItem;
+    ChoiceState _choice;
+    SelectState _select;
     InteractStateMachine _stateMachine = new();
     string _currentInteractor;
     bool _subscribed;
@@ -18,11 +23,27 @@ public class InteractPresenter : ISubscribable
     bool _gaveItem;
     bool _openMenu;
 
+    public ConversationAsset CurrentConversation => _currentConversation;
+    public Paragraph CurrentParagraph => _currentParagraph;
+    public string CurrentInteractor => _currentInteractor;
+
     public InteractPresenter(InteractView view, InteractModel model)
     {
         _view = view;
-        _runtime = new InteractRuntime(model);
-        if (_runtime == null) throw new System.NullReferenceException(nameof(_runtime));
+        if (!RuntimeStorage.TryGetData<InteractRuntime>(view.ID, out var data))
+        {
+            _runtime = new InteractRuntime(model);
+            RuntimeStorage.RegisterData(view.ID, _runtime);
+        }
+        else
+        {
+            _runtime = data;
+        }
+        _conversation = new ConversationState(_view, this, _runtime);
+        _giveItem = new GiveItemState(_view, this, _runtime);
+        _changeItem = new ChangeItemState(_view, this, _runtime);
+        _choice = new ChoiceState(_view, this, _runtime);
+        _select=new SelectState(_view, this, _runtime);
     }
 
     public void Dispose()
@@ -71,20 +92,25 @@ public class InteractPresenter : ISubscribable
             FinishInteract();
             return;
         }
-        IEnterState state = null;
+        IInteractState state = null;
         switch (_currentParagraph.NodeType)
         {
             case NodeType.Conversation:
-                state = new ConversationEnter(this);
+                state = _conversation;
                 break;
             case NodeType.Choice:
+                state = _choice;
+                break;
+            case NodeType.Select:
+                state = _select;
                 break;
             case NodeType.GiveItem:
-                state = new GiveItemEnter(this);
+                state = _giveItem;
                 break;
             default:
                 break;
         }
+        Debug.Log(state);
         _stateMachine.ChangeState(state);
     }
 
@@ -96,26 +122,7 @@ public class InteractPresenter : ISubscribable
         }
     }
 
-    public void StreamText()
-    {
-        _view?.OpenInteractWindow();
-        _view?.StartStreamText(StreamText(_currentParagraph.Text));
-        _view?.SetTalkers(_currentParagraph.LeftTalker, _currentParagraph.RightTalker);
-        switch (_currentParagraph.TalkerType)
-        {
-            case CurrentTalker.Left:
-                _view?.TalkLeft(_currentParagraph.LeftTalker);
-                break;
-            case CurrentTalker.Right:
-                _view?.TalkRight(_currentParagraph.RightTalker);
-                break;
-            case CurrentTalker.Narration:
-                _view?.TalkNarration();
-                break;
-        }
-    }
-
-    IEnumerator StreamText(string text)
+    public IEnumerator StreamText(string text)
     {
         _runningStreamingText = true;
         var sb = new StringBuilder();
@@ -147,7 +154,7 @@ public class InteractPresenter : ISubscribable
     {
         if (!_runningStreamingText)
         {
-            _stateMachine.Execute();
+            _stateMachine.PushEnter();
         }
         else
         {
@@ -200,40 +207,23 @@ public class InteractPresenter : ISubscribable
         _runtime.RemoveKey(token.Key);
     }
 
-    public void GiveItem()
-    {
-        if (!RuntimeStorage.TryGetData(_currentInteractor, out var data) || !(data is InteractableRuntime typed)) return;
-        var item = typed.Item;
-        _view?.GetItem(item);
-    }
-
     void UpdateHotbar(GetItemToken token)
     {
-        if (RuntimeStorage.TryGetData(token.ID, out var data) && data is PlayerRuntime typed)
-            _runtime.UpdateHotbar(typed.Hotbar);
+        if (RuntimeStorage.TryGetData<PlayerRuntime>(token.ID, out var data))
+            _runtime.UpdateHotbar(data.Hotbar);
     }
 
     void UpdateHotbar(UseItemToken token)
     {
-        if (RuntimeStorage.TryGetData(token.ID, out var data) && data is PlayerRuntime typed)
-            _runtime.UpdateHotbar(typed.Hotbar);
+        if (RuntimeStorage.TryGetData<PlayerRuntime>(token.ID, out var data))
+            _runtime.UpdateHotbar(data.Hotbar);
     }
 
     public void OpenHotbar()
     {
-        if (!RuntimeStorage.TryGetData(_currentInteractor, out var data) || data is not InteractableRuntime typed) return;
-        var item = typed.Item;
-        if (_runtime.GetItem(item))
-        {
-            _view?.CloseGetItemWindow();
-            ChangeState();
-            EventBus.Publish(new DropItemToken(_currentInteractor, _runtime.Hotbar[_runtime.Hotbar.Length - 1]));
-            EventBus.Publish(new GiveItemToken(_runtime.Hotbar));
-            return;
-        }
         _runtime.OpenHotbar();
-        _view?.OpenHotbar(_runtime.Hotbar, item);
-        _stateMachine?.ChangeState(new ChangeItemEnter(this));
+        //_view?.OpenHotbar(_runtime.Hotbar);
+        _stateMachine?.ChangeState(_changeItem);
     }
 
     void SelectSlot(SelectInteractHotbarToken token)
@@ -252,7 +242,7 @@ public class InteractPresenter : ISubscribable
     {
         _runtime.ChangeItem();
         EventBus.Publish(new DropItemToken(_currentInteractor, _runtime.Hotbar[_runtime.Hotbar.Length - 1]));
-        EventBus.Publish(new GiveItemToken(_runtime.Hotbar));
+        //EventBus.Publish(new GiveItemToken(_runtime.Hotbar));
         _view?.CloseHotbar();
         ChangeState();
     }

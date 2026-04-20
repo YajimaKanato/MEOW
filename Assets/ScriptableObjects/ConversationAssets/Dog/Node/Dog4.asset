@@ -21,7 +21,7 @@ MonoBehaviour:
     _rightTalker: 2
     _talker: 2
     _text: "\u624B\u5143\u306B\u306F\u5148\u307B\u3069\u62FE\u3063\u305F\u98DF\u6599\u304C\u3042\u308B\n\u3053\u308C\u3092\u4E0A\u3052\u308B\u304B"
-  - _nodeType: 1
+  - _nodeType: 2
     _leftTalker: 1
     _rightTalker: 2
     _talker: 2

@@ -10,14 +10,14 @@ public class InteractablePresenter : ISubscribable
     public InteractablePresenter(InteractableView view, InteractableModel model)
     {
         _view = view;
-        if (!RuntimeStorage.TryGetData(view.ID, out var data) || !(data is InteractableRuntime typed))
+        if (!RuntimeStorage.TryGetData<InteractableRuntime>(view.ID, out var data))
         {
             _runtime = new InteractableRuntime(model);
             RuntimeStorage.RegisterData(view.ID, _runtime);
         }
         else
         {
-            _runtime = typed;
+            _runtime = data;
         }
     }
 

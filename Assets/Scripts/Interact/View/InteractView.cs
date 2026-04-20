@@ -19,6 +19,10 @@ public partial class InteractView : ViewBase
             _spriteDict[character.CharacterType] = character.TalkingSprite;
             _nameDict[character.CharacterType] = character.CharacterName;
         }
+        foreach(var selectable in _choices)
+        {
+            _selectableDict[selectable.NodeType] = selectable.UI;
+        }
         CloseGetItemWindow();
         CloseHotbar();
         CloseInteractWindow();

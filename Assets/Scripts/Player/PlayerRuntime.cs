@@ -81,19 +81,31 @@ public class PlayerRuntime : IRuntime, IData
         return _currentIndex;
     }
 
+    public bool ValidateGetItem(out int index)
+    {
+        index = -1;
+        for (int i = 0; i < _hotbar.Length; i++)
+        {
+            if (_hotbar[i] == ItemLabel.None)
+            {
+                index = i;
+                return true;
+            }
+        }
+        return false;
+    }
+
     /// <summary>
     /// アイテムを獲得するメソッド
     /// </summary>
     /// <param name="item">獲得したアイテム</param>
     /// <param name="index">格納するインデックス</param>
     /// <returns>交換したアイテム</returns>
-    public void GetItem(ItemLabel[] item)
+    public ItemLabel GetItem(ItemLabel item, int index)
     {
-        for (int i = 0; i < item.Length; i++)
-        {
-            if (i < item.Length - 1)
-                _hotbar[i] = item[i];
-        }
+        var returnItem = _hotbar[index];
+        _hotbar[index] = item;
+        return returnItem;
     }
 
     /// <summary>

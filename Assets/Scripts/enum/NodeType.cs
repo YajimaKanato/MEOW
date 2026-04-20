@@ -3,6 +3,7 @@ using UnityEngine;
 public enum NodeType
 {
     [InspectorName("会話")] Conversation,
-    [InspectorName("選択肢")] Choice,
+    [InspectorName("二者択一")] Choice,
+    [InspectorName("アイテム選択")] Select,
     [InspectorName("アイテムをあげる")] GiveItem
 }
