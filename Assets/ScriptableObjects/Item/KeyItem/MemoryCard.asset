@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228cd21606c3eea43b240f2c2b36308e, type: 3}
   m_Name: MemoryCard
   m_EditorClassIdentifier: Assembly-CSharp::KeyItem
-  _itemType: 0
+  _itemType: 2
   _itemLabel: 10
+  _itemSprite: {fileID: 0}
   _itemName: "\u30E1\u30E2\u30EA\u30FC\u30AB\u30FC\u30C9"
   _itemInfo: "\u30AB\u30E1\u30E9\u7528\u306E\u30E1\u30E2\u30EA\u30FC\u30AB\u30FC\u30C9\r\n\u8AB0\u306E\u601D\u3044\u51FA\u304C\u8A18\u9332\u3055\u308C\u3066\u3044\u308B\u306E\u304B"

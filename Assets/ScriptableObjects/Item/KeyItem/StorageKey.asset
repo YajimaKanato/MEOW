@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228cd21606c3eea43b240f2c2b36308e, type: 3}
   m_Name: StorageKey
   m_EditorClassIdentifier: Assembly-CSharp::KeyItem
-  _itemType: 0
+  _itemType: 2
   _itemLabel: 9
+  _itemSprite: {fileID: 0}
   _itemName: "\u5009\u5EAB\u306E\u30AD\u30FC"
   _itemInfo: "\u3042\u308B\u5834\u6240\u306B\u5B58\u5728\u3059\u308B\u5009\u5EAB\u3092\u958B\u3051\u308B\u9375"

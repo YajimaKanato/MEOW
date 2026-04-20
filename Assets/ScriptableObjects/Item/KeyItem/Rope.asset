@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228cd21606c3eea43b240f2c2b36308e, type: 3}
   m_Name: Rope
   m_EditorClassIdentifier: Assembly-CSharp::KeyItem
-  _itemType: 0
+  _itemType: 2
   _itemLabel: 8
+  _itemSprite: {fileID: 0}
   _itemName: "\u30ED\u30FC\u30D7"
   _itemInfo: "\u9577\u3044\u4E0A\u306B\u4E08\u592B\u305D\u3046\u306A\u30ED\u30FC\u30D7\u3060"

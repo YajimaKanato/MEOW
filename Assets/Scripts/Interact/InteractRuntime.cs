@@ -1,4 +1,5 @@
 using MVPTools.Runtime;
+using UnityEngine;
 
 public class InteractRuntime : IRuntime
 {
@@ -17,12 +18,14 @@ public class InteractRuntime : IRuntime
         _manager = new InteractManager(definition.Conversations);
         var hotbar = definition.Hotbar.Hotbar;
         _hotbar = new ItemLabel[hotbar.Length + 1];
+        RemoveKey(ConditionKey.HaveAnyFood);
         for (int i = 0; i < _hotbar.Length; i++)
         {
             if (i == _hotbar.Length - 1)
                 _hotbar[i] = ItemLabel.None;
             else
                 _hotbar[i] = hotbar[i] != null ? hotbar[i].ItemLabel : ItemLabel.None;
+            if (_hotbar[i] != ItemLabel.None) SetKey(ConditionKey.HaveAnyFood);
         }
     }
 
@@ -95,9 +98,11 @@ public class InteractRuntime : IRuntime
     public void UpdateHotbar(ItemLabel[] hotbar)
     {
         if (hotbar == null) return;
+        RemoveKey(ConditionKey.HaveAnyFood);
         for (int i = 0; i < hotbar.Length; i++)
         {
             _hotbar[i] = hotbar[i];
+            if (_hotbar[i] != ItemLabel.None) SetKey(ConditionKey.HaveAnyFood);
         }
     }
 

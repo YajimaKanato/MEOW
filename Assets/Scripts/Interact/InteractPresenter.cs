@@ -172,15 +172,17 @@ public class InteractPresenter : ISubscribable
         else
         {
             //自動分岐判定
+            var nextBranch = false;
             foreach (var conversation in _currentConversation.Branches)
             {
                 if (_runtime.CheckCondition(conversation))
                 {
                     _currentConversation = conversation.Next;
+                    nextBranch = true;
                     break;
                 }
             }
-            _currentConversation = _currentConversation.Default;
+            if (!nextBranch) _currentConversation = _currentConversation.Default;
             UpdateInteract();
             ChangeState();
         }
