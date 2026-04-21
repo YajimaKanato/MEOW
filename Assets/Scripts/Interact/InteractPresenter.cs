@@ -16,6 +16,7 @@ public class InteractPresenter : ISubscribable
     ChangeItemState _changeItem;
     ChoiceState _choice;
     SelectState _select;
+    FinishState _finish;
     InteractStateMachine _stateMachine = new();
     string _currentInteractor;
     bool _subscribed;
@@ -43,7 +44,8 @@ public class InteractPresenter : ISubscribable
         _giveItem = new GiveItemState(_view, this, _runtime);
         _changeItem = new ChangeItemState(_view, this, _runtime);
         _choice = new ChoiceState(_view, this, _runtime);
-        _select=new SelectState(_view, this, _runtime);
+        _select = new SelectState(_view, this, _runtime);
+        _finish = new FinishState(_view, this, _runtime);
     }
 
     public void Dispose()
@@ -61,10 +63,6 @@ public class InteractPresenter : ISubscribable
         EventBus.Subscribe<StartInteractToken>(this, StartInteract);
         EventBus.Subscribe<SetFlagToken>(this, SetKey);
         EventBus.Subscribe<RemoveFlagToken>(this, RemoveKey);
-        EventBus.Subscribe<SelectInteractHotbarToken>(this, SelectSlot);
-        EventBus.Subscribe<MoveInteractHotbarToken>(this, MoveIndex);
-        EventBus.Subscribe<GetItemToken>(this, UpdateHotbar);
-        EventBus.Subscribe<UseItemToken>(this, UpdateHotbar);
     }
 
     public void Unsubscribe()
@@ -87,30 +85,30 @@ public class InteractPresenter : ISubscribable
 
     public void ChangeState()
     {
-        if (!_queue.TryDequeue(out _currentParagraph))
+        IInteractState state = _finish;
+        if (_queue.TryDequeue(out _currentParagraph))
         {
-            FinishInteract();
-            return;
+            switch (_currentParagraph.NodeType)
+            {
+                case NodeType.Conversation:
+                    state = _conversation;
+                    break;
+                case NodeType.Choice:
+                    state = _choice;
+                    break;
+                case NodeType.Select:
+                    state = _select;
+                    break;
+                case NodeType.GiveItem:
+                    state = _giveItem;
+                    break;
+                default:
+                    break;
+            }
         }
-        IInteractState state = null;
-        switch (_currentParagraph.NodeType)
-        {
-            case NodeType.Conversation:
-                state = _conversation;
-                break;
-            case NodeType.Choice:
-                state = _choice;
-                break;
-            case NodeType.Select:
-                state = _select;
-                break;
-            case NodeType.GiveItem:
-                state = _giveItem;
-                break;
-            default:
-                break;
-        }
+#if UNITY_EDITOR
         Debug.Log(state);
+#endif
         _stateMachine.ChangeState(state);
     }
 
@@ -175,7 +173,7 @@ public class InteractPresenter : ISubscribable
         {
             _view?.CloseInteractWindow();
             EventBus.Publish(new BackActionMapToken());
-            _currentConversation = _currentConversation.Default;
+            NextConversation(_currentConversation.Default);
         }
         else
         {
@@ -185,65 +183,37 @@ public class InteractPresenter : ISubscribable
             {
                 if (_runtime.CheckCondition(conversation))
                 {
-                    _currentConversation = conversation.Next;
+                    NextConversation(conversation.Next);
                     nextBranch = true;
+#if UNITY_EDITOR
+                    Debug.Log("Condition Completed");
+#endif
                     break;
                 }
             }
-            if (!nextBranch) _currentConversation = _currentConversation.Default;
+            if (!nextBranch) NextConversation(_currentConversation.Default);
             UpdateInteract();
             ChangeState();
         }
         _runtime.UpdateID(_currentConversation.CharacterType, _currentConversation.ID);
     }
 
+    public void NextConversation(ConversationAsset asset)
+    {
+        if (asset == null) return;
+        _currentConversation = asset;
+    }
+
     void SetKey(SetFlagToken token)
     {
+#if UNITY_EDITOR
+        Debug.Log($"Condition \"{token.Key}\" Completed");
+#endif
         _runtime.SetKey(token.Key);
     }
 
     void RemoveKey(RemoveFlagToken token)
     {
         _runtime.RemoveKey(token.Key);
-    }
-
-    void UpdateHotbar(GetItemToken token)
-    {
-        if (RuntimeStorage.TryGetData<PlayerRuntime>(token.ID, out var data))
-            _runtime.UpdateHotbar(data.Hotbar);
-    }
-
-    void UpdateHotbar(UseItemToken token)
-    {
-        if (RuntimeStorage.TryGetData<PlayerRuntime>(token.ID, out var data))
-            _runtime.UpdateHotbar(data.Hotbar);
-    }
-
-    public void OpenHotbar()
-    {
-        _runtime.OpenHotbar();
-        //_view?.OpenHotbar(_runtime.Hotbar);
-        _stateMachine?.ChangeState(_changeItem);
-    }
-
-    void SelectSlot(SelectInteractHotbarToken token)
-    {
-        var index = _runtime.SelectIndex(token.Index);
-        _view?.ChangeSlot(index);
-    }
-
-    void MoveIndex(MoveInteractHotbarToken token)
-    {
-        var index = _runtime.MoveIndex(token.Move);
-        _view?.ChangeSlot(index);
-    }
-
-    public void CloseHotbar()
-    {
-        _runtime.ChangeItem();
-        EventBus.Publish(new DropItemToken(_currentInteractor, _runtime.Hotbar[_runtime.Hotbar.Length - 1]));
-        //EventBus.Publish(new GiveItemToken(_runtime.Hotbar));
-        _view?.CloseHotbar();
-        ChangeState();
     }
 }

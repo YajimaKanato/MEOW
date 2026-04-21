@@ -25,6 +25,7 @@ public class PlayerRuntime : IRuntime, IData
         for (int i = 0; i < hotbar.Length; i++)
         {
             _hotbar[i] = hotbar[i] != null ? hotbar[i].ItemLabel : ItemLabel.None;
+            if (_hotbar[i] != ItemLabel.None) EventBus.Publish(new SetFlagToken(ConditionKey.HaveAnyFood));
         }
         _walkSpeed = model.WalkSpeed;
         _runSpeed = model.RunSpeed;

@@ -92,7 +92,8 @@ public class PlayerPresenter : ISubscribable
 
     public void UseItem()
     {
-        _runtime.UseItem();
+        if (_runtime.UseItem() == ItemLabel.None) return;
+        EventBus.Publish(new RemoveFlagToken(ConditionKey.HotbarIsFullness));
         EventBus.Publish(new UseItemToken(_view.ID));
     }
 

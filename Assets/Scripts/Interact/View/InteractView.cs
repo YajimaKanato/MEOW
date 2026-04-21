@@ -19,12 +19,16 @@ public partial class InteractView : ViewBase
             _spriteDict[character.CharacterType] = character.TalkingSprite;
             _nameDict[character.CharacterType] = character.CharacterName;
         }
-        foreach(var selectable in _choices)
+        foreach (var selectable in _choices)
         {
             _selectableDict[selectable.NodeType] = selectable.UI;
         }
+        foreach (var selectable in _choices)
+        {
+            selectable?.UI?.gameObject.SetActive(false);
+        }
         CloseGetItemWindow();
-        CloseHotbar();
+        CloseChoice();
         CloseInteractWindow();
         if (_back != null) _back.enabled = false;
     }

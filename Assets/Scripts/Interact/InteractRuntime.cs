@@ -4,29 +4,14 @@ using UnityEngine;
 public class InteractRuntime : IRuntime
 {
     InteractManager _manager;
-    ItemLabel[] _hotbar;
     TextSpeed _currentTextSpeed;
-    int _currentIndex;
 
     public TextSpeed CurrentTextSpeed => _currentTextSpeed;
-    public ItemLabel[] Hotbar => _hotbar;
 
     public InteractRuntime(InteractModel definition)
     {
         _currentTextSpeed = definition.TextSpeed;
-        _currentIndex = definition.Hotbar.DefaultIndex;
         _manager = new InteractManager(definition.Conversations);
-        var hotbar = definition.Hotbar.Hotbar;
-        _hotbar = new ItemLabel[hotbar.Length + 1];
-        RemoveKey(ConditionKey.HaveAnyFood);
-        for (int i = 0; i < _hotbar.Length; i++)
-        {
-            if (i == _hotbar.Length - 1)
-                _hotbar[i] = ItemLabel.None;
-            else
-                _hotbar[i] = hotbar[i] != null ? hotbar[i].ItemLabel : ItemLabel.None;
-            if (_hotbar[i] != ItemLabel.None) SetKey(ConditionKey.HaveAnyFood);
-        }
     }
 
     public void Dispose()
@@ -72,59 +57,5 @@ public class InteractRuntime : IRuntime
     public void Clear()
     {
         _manager.Clear();
-    }
-
-    public void OpenHotbar()
-    {
-        _currentIndex = 0;
-    }
-
-    public int SelectIndex(int index)
-    {
-        _currentIndex = index;
-        return _currentIndex;
-    }
-
-    /// <summary>
-    /// ホットバーの次の要素を選択するメソッド
-    /// </summary>
-    /// <returns>選択したインデックス</returns>
-    public int MoveIndex(SlotMove move)
-    {
-        _currentIndex += (int)move;
-        return _currentIndex;
-    }
-
-    public void UpdateHotbar(ItemLabel[] hotbar)
-    {
-        if (hotbar == null) return;
-        RemoveKey(ConditionKey.HaveAnyFood);
-        for (int i = 0; i < hotbar.Length; i++)
-        {
-            _hotbar[i] = hotbar[i];
-            if (_hotbar[i] != ItemLabel.None) SetKey(ConditionKey.HaveAnyFood);
-        }
-    }
-
-    public bool GetItem(ItemLabel item)
-    {
-        _hotbar[_hotbar.Length - 1] = ItemLabel.None;
-        for (int i = 0; i < _hotbar.Length - 1; i++)
-        {
-            if (_hotbar[i] == ItemLabel.None)
-            {
-                _hotbar[i] = item;
-                return true;
-            }
-        }
-        _hotbar[_hotbar.Length - 1] = item;
-        return false;
-    }
-
-    public void ChangeItem()
-    {
-        var swap = _hotbar[_hotbar.Length - 1];
-        _hotbar[_hotbar.Length - 1] = _hotbar[_currentIndex];
-        _hotbar[_currentIndex] = swap;
     }
 }

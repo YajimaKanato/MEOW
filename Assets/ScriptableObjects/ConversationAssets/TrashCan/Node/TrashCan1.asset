@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConversationAsset
   _characterType: 6
   _id: 0
-  _finish: 1
+  _finish: 0
   _texts:
   - _nodeType: 0
     _leftTalker: 0
@@ -26,7 +26,8 @@ MonoBehaviour:
     _rightTalker: 0
     _talker: 2
     _text: 
-  _default: {fileID: 11400000, guid: fe2c6c40ecd0efa48b5659d2068f8d5c, type: 2}
-  _branches: []
+  _default: {fileID: 11400000, guid: 646569d824f88014db5daff719c7ceb7, type: 2}
+  _branches:
+  - {fileID: 11400000, guid: c5a3b834ca2956649ab42e1f0d3caa39, type: 2}
   _choiceType: 2
   _choices: []

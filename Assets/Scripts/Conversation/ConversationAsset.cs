@@ -15,13 +15,11 @@ public class ConversationAsset : ScriptableObject
     [Header("自動分岐")]
     [SerializeField] Branch[] _branches;
     [Header("選択肢")]
-    [SerializeField] ChoiceType _choiceType = ChoiceType.None;
     [SerializeField] Choice[] _choices;
 
     public CharacterType CharacterType => _characterType;
     public int ID => _id;
     public bool Finish => _finish;
-    public ChoiceType ChoiceType => _choiceType;
     public Choice[] Choices => _choices;
     public Branch[] Branches => _branches;
     public ConversationAsset Default => _default;

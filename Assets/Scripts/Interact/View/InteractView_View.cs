@@ -83,23 +83,28 @@ public partial class InteractView
         _getItemWindow?.gameObject.SetActive(false);
     }
 
-    public void OpenHotbar(NodeType nodeType)
+    public void OpenChoice(NodeType nodeType)
     {
-        _selectableDict.TryGetValue(nodeType, out _currentSelectable);
+        if (!_selectableDict.TryGetValue(nodeType, out _currentSelectable)) return;
+        _currentSelectable?.gameObject?.SetActive(true);
     }
 
     public void SetSelect(ItemLabel item, string text, int index)
     {
+        if (_currentSelectable == null) return;
         if (!_itemList.TryGetItem(item, out var sprite)) return;
-        _currentSelectable.SetElements(sprite.ItemSprite, text, index);
+        if (_currentSelectable.gameObject.activeSelf) _currentSelectable.SetElements(sprite.ItemSprite, text, index);
     }
 
     public void ChangeSlot(int index)
     {
+        if (_currentSelectable == null) return;
+        if (_currentSelectable.gameObject.activeSelf) _currentSelectable.SelectIndex(index);
     }
 
-    public void CloseHotbar()
+    public void CloseChoice()
     {
+        _currentSelectable?.gameObject?.SetActive(false);
     }
 
     [Serializable]
