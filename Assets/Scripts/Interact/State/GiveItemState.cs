@@ -16,12 +16,13 @@ public class GiveItemState : InteractStateBase
         {
             if (player.ValidateGetItem(out var index))
             {
-                _runtime.SetKey(ConditionKey.HaveAnyFood);
+                EventBus.Publish(new SetFlagToken(ConditionKey.HaveAnyFood));
                 EventBus.Publish(new GiveItemToken(item, index));
             }
             else
             {
-                _runtime.SetKey(ConditionKey.HotbarIsFullness);
+                _runtime.SetItem(item);
+                EventBus.Publish(new SetFlagToken(ConditionKey.HotbarIsFullness));
             }
         }
     }

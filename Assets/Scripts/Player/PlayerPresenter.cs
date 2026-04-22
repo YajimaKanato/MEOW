@@ -86,7 +86,7 @@ public class PlayerPresenter : ISubscribable
 
     void GetItem(GiveItemToken token)
     {
-        _runtime.GetItem(token.Item, token.Index);
+        EventBus.Publish(new DropItemToken(_calculator.NearestInteractor.ID, _runtime.GetItem(token.Item, token.Index)));
         EventBus.Publish(new GetItemToken(_view.ID));
     }
 
@@ -117,12 +117,12 @@ public class PlayerPresenter : ISubscribable
 
     public void SelectInteractHotbar(int index)
     {
-        EventBus.Publish(new SelectInteractHotbarToken(index));
+        EventBus.Publish(new SelectInteractToken(index));
     }
 
     public void MoveInteractHotbar(SlotMove index)
     {
-        EventBus.Publish(new MoveInteractHotbarToken(index));
+        EventBus.Publish(new MoveInteractToken(index));
     }
     #endregion
 

@@ -4,8 +4,10 @@ using UnityEngine;
 public class InteractRuntime : IRuntime
 {
     InteractManager _manager;
+    ItemLabel _item;
     TextSpeed _currentTextSpeed;
 
+    public ItemLabel Item => _item;
     public TextSpeed CurrentTextSpeed => _currentTextSpeed;
 
     public InteractRuntime(InteractModel definition)
@@ -39,9 +41,9 @@ public class InteractRuntime : IRuntime
         _manager.UpdateID(characterType, id);
     }
 
-    public void SetKey(ConditionKey conditionKey)
+    public bool SetKey(ConditionKey conditionKey)
     {
-        _manager.SetKey(conditionKey);
+        return _manager.SetKey(conditionKey);
     }
 
     public void RemoveKey(ConditionKey conditionKey)
@@ -57,5 +59,10 @@ public class InteractRuntime : IRuntime
     public void Clear()
     {
         _manager.Clear();
+    }
+
+    public void SetItem(ItemLabel item)
+    {
+        _item = item;
     }
 }

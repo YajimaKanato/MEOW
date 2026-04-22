@@ -5,7 +5,18 @@ public class Selectable : MonoBehaviour
     [SerializeField] SelectableElement[] _elements;
     int _currentIndex;
 
-    public void SetElements(Sprite icon, string text,int index)
+    public void OpenSelectable()
+    {
+        for (int i = 0; i < _elements.Length; i++)
+        {
+            if (i == 0)
+                _elements[i]?.Select();
+            else
+                _elements[i]?.Unselect();
+        }
+    }
+
+    public void SetElements(Sprite icon, string text, int index)
     {
         _elements[index]?.SetChoice(icon, text);
     }

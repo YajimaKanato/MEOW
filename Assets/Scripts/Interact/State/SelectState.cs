@@ -14,7 +14,21 @@ public class SelectState : SelectStateBase
         for (int i = 0; i < _choiceLength; i++)
         {
             if (_choices[i] == null) return;
-            _view.SetSelect(player.Hotbar[i], _choices[i].ConditionText, i);
+            if (i == _choiceLength - 1)
+            {
+                _view.SetSelect(_runtime.Item, _choices[i].ConditionText, i);
+            }
+            else
+            {
+                _view.SetSelect(player.Hotbar[i], _choices[i].ConditionText, i);
+            }
         }
+    }
+
+    public override void PushEnter()
+    {
+        EventBus.Publish(new SetFlagToken(ConditionKey.HaveAnyFood));
+        EventBus.Publish(new GiveItemToken(_runtime.Item, _index));
+        base.PushEnter();
     }
 }

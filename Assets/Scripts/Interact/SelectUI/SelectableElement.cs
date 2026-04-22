@@ -15,11 +15,13 @@ public class SelectableElement : MonoBehaviour
 
     public void Select()
     {
-
+        if (_icon == null) return;
+        _icon.color = Color.red;
     }
 
     public void Unselect()
     {
-
+        if (_icon == null) return;
+        _icon.color = Color.green;
     }
 }

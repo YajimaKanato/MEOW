@@ -22,10 +22,14 @@ public class PlayerRuntime : IRuntime, IData
     {
         var hotbar = model.Hotbar.Hotbar;
         _hotbar = new ItemLabel[hotbar.Length];
+        EventBus.Publish(new SetFlagToken(ConditionKey.HotbarIsFullness));
         for (int i = 0; i < hotbar.Length; i++)
         {
             _hotbar[i] = hotbar[i] != null ? hotbar[i].ItemLabel : ItemLabel.None;
-            if (_hotbar[i] != ItemLabel.None) EventBus.Publish(new SetFlagToken(ConditionKey.HaveAnyFood));
+            if (_hotbar[i] != ItemLabel.None)
+                EventBus.Publish(new SetFlagToken(ConditionKey.HaveAnyFood));
+            else
+                EventBus.Publish(new RemoveFlagToken(ConditionKey.HotbarIsFullness));
         }
         _walkSpeed = model.WalkSpeed;
         _runSpeed = model.RunSpeed;

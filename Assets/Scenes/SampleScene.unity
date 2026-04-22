@@ -676,7 +676,7 @@ MonoBehaviour:
   _autoInit: 1
   _actionAsset: {fileID: -944628639613478452, guid: d2fd2d2064e018748b287bffedf54d76, type: 3}
   _model: {fileID: 11400000, guid: 1cb8bb52fef8bff42bf5e76460c73c00, type: 2}
-  _characterType: 0
+  _characterType: 1
   _groundLayer:
     serializedVersion: 2
     m_Bits: 256

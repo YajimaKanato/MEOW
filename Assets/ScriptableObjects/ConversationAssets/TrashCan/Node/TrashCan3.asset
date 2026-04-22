@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6df32026bdc67dd4aa5f260b31148c05, type: 3}
   m_Name: TrashCan3
   m_EditorClassIdentifier: Assembly-CSharp::ConversationAsset
-  _characterType: 0
+  _characterType: 6
   _id: 2
   _finish: 1
   _texts: []
   _default: {fileID: 11400000, guid: c9a605cba2b40b647abb0dfe3a9b0804, type: 2}
   _branches: []
-  _choiceType: 2
   _choices: []

@@ -87,6 +87,7 @@ public partial class InteractView
     {
         if (!_selectableDict.TryGetValue(nodeType, out _currentSelectable)) return;
         _currentSelectable?.gameObject?.SetActive(true);
+        _currentSelectable?.OpenSelectable();
     }
 
     public void SetSelect(ItemLabel item, string text, int index)

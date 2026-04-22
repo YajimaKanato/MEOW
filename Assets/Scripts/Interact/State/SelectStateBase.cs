@@ -15,7 +15,7 @@ public abstract class SelectStateBase : InteractStateBase
     {
         _choices = _presenter.CurrentConversation.Choices;
         _index = 0;
-        _choiceLength = _choices.Length - 1;
+        _choiceLength = _choices.Length;
         _view.OpenChoice(_presenter.CurrentParagraph.NodeType);
     }
 
@@ -36,8 +36,8 @@ public abstract class SelectStateBase : InteractStateBase
     {
         var conversation = _presenter.CurrentConversation.Choices;
         EventBus.Publish(new SetFlagToken(conversation[_index].ConditionKey));
-        _presenter.NextConversation(conversation[_index].Next);
         _presenter.ChangeState();
+        //_presenter.NextConversation(conversation[_index].Next);
     }
 
     public override void SelectIndex(int index)

@@ -13,7 +13,6 @@ public class InteractPresenter : ISubscribable
     Paragraph _currentParagraph;
     ConversationState _conversation;
     GiveItemState _giveItem;
-    ChangeItemState _changeItem;
     ChoiceState _choice;
     SelectState _select;
     FinishState _finish;
@@ -42,7 +41,6 @@ public class InteractPresenter : ISubscribable
         }
         _conversation = new ConversationState(_view, this, _runtime);
         _giveItem = new GiveItemState(_view, this, _runtime);
-        _changeItem = new ChangeItemState(_view, this, _runtime);
         _choice = new ChoiceState(_view, this, _runtime);
         _select = new SelectState(_view, this, _runtime);
         _finish = new FinishState(_view, this, _runtime);
@@ -63,6 +61,8 @@ public class InteractPresenter : ISubscribable
         EventBus.Subscribe<StartInteractToken>(this, StartInteract);
         EventBus.Subscribe<SetFlagToken>(this, SetKey);
         EventBus.Subscribe<RemoveFlagToken>(this, RemoveKey);
+        EventBus.Subscribe<SelectInteractToken>(this, SelectIndex);
+        EventBus.Subscribe<MoveInteractToken>(this, MoveIndex);
     }
 
     public void Unsubscribe()
@@ -96,7 +96,7 @@ public class InteractPresenter : ISubscribable
                 case NodeType.Choice:
                     state = _choice;
                     break;
-                case NodeType.Select:
+                case NodeType.ItemSelect:
                     state = _select;
                     break;
                 case NodeType.GiveItem:
@@ -106,9 +106,6 @@ public class InteractPresenter : ISubscribable
                     break;
             }
         }
-#if UNITY_EDITOR
-        Debug.Log(state);
-#endif
         _stateMachine.ChangeState(state);
     }
 
@@ -171,9 +168,9 @@ public class InteractPresenter : ISubscribable
 
         if (_currentConversation.Finish)
         {
+            NextConversation(_currentConversation.Default);
             _view?.CloseInteractWindow();
             EventBus.Publish(new BackActionMapToken());
-            NextConversation(_currentConversation.Default);
         }
         else
         {
@@ -190,30 +187,51 @@ public class InteractPresenter : ISubscribable
 #endif
                     break;
                 }
+                else
+                {
+                    Debug.Log(conversation);
+                }
             }
             if (!nextBranch) NextConversation(_currentConversation.Default);
             UpdateInteract();
             ChangeState();
         }
         _runtime.UpdateID(_currentConversation.CharacterType, _currentConversation.ID);
+        Debug.Log($"{_currentConversation.CharacterType} {_currentConversation.ID}");
     }
 
     public void NextConversation(ConversationAsset asset)
     {
         if (asset == null) return;
         _currentConversation = asset;
+#if UNITY_EDITOR
+        Debug.Log(_currentConversation);
+#endif
     }
 
     void SetKey(SetFlagToken token)
     {
+        if (_runtime.SetKey(token.Key))
 #if UNITY_EDITOR
-        Debug.Log($"Condition \"{token.Key}\" Completed");
+            Debug.Log($"Condition \"{token.Key}\" Completed");
 #endif
-        _runtime.SetKey(token.Key);
     }
 
     void RemoveKey(RemoveFlagToken token)
     {
         _runtime.RemoveKey(token.Key);
+#if UNITY_EDITOR
+        Debug.Log($"Condition \"{token.Key}\" Removed");
+#endif
+    }
+
+    void SelectIndex(SelectInteractToken token)
+    {
+        _stateMachine?.SelectIndex(token.Index);
+    }
+
+    void MoveIndex(MoveInteractToken token)
+    {
+        _stateMachine?.MoveIndex(token.Move);
     }
 }

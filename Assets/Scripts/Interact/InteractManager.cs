@@ -19,9 +19,9 @@ public class InteractManager
         }
     }
 
-    public void SetKey(ConditionKey conditionKey)
+    public bool SetKey(ConditionKey conditionKey)
     {
-        _conditionKeys.Add(conditionKey);
+        return _conditionKeys.Add(conditionKey);
     }
 
     public void RemoveKey(ConditionKey conditionKey)
