@@ -17,3 +17,5 @@ MonoBehaviour:
   _startConversations:
   - {fileID: 11400000, guid: 2a7736a526582bf4d967d79713e71529, type: 2}
   - {fileID: 11400000, guid: fe2c6c40ecd0efa48b5659d2068f8d5c, type: 2}
+  - {fileID: 11400000, guid: 646569d824f88014db5daff719c7ceb7, type: 2}
+  - {fileID: 11400000, guid: c9a605cba2b40b647abb0dfe3a9b0804, type: 2}
