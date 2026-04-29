@@ -2,7 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SceneTransitionView : MonoBehaviour
+public class SceneTransitionFade : MonoBehaviour
 {
     [SerializeField] Image _fade;
     [SerializeField] float _fadeTime = 0.5f;
