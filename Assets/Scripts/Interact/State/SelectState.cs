@@ -11,10 +11,10 @@ public class SelectState : SelectStateBase
     {
         base.Entry();
         if (!RuntimeStorage.TryGetData<PlayerRuntime>(CharacterType.Player.ToString(), out var player)) return;
-        for (int i = 0; i < _choiceLength; i++)
+        for (int i = 0; i < _choiceLength + 1; i++)
         {
             if (_choices[i] == null) return;
-            if (i == _choiceLength - 1)
+            if (i == _choiceLength)
             {
                 _view.SetSelect(_runtime.Item, _choices[i].ConditionText, i);
             }

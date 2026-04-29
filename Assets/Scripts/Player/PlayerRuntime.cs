@@ -108,6 +108,7 @@ public class PlayerRuntime : IRuntime, IData
     /// <returns>交換したアイテム</returns>
     public ItemLabel GetItem(ItemLabel item, int index)
     {
+        if (index > _hotbar.Length - 1) return item;
         var returnItem = _hotbar[index];
         _hotbar[index] = item;
         return returnItem;
