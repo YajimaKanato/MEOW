@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SceneTransition
   m_EditorClassIdentifier: Assembly-CSharp::Choice
   _conditionText: "\u306F\u3044"
-  _conditionKey: 0
+  _conditionKey: 4
   _next: {fileID: 11400000, guid: bc25869b1bc6b5b419c6dc996c562ffd, type: 2}

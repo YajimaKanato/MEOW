@@ -22,7 +22,8 @@ MonoBehaviour:
     _talker: 2
     _text: 
   _default: {fileID: 11400000}
-  _branches: []
+  _branches:
+  - {fileID: 11400000, guid: feed16f357f6eba449496ea718f3f232, type: 2}
   _choices:
   - {fileID: 11400000, guid: 453944a4a9b260b43b953530c3993775, type: 2}
   - {fileID: 11400000, guid: 9b2490638d9a9b246863e3185f29576c, type: 2}
