@@ -14,6 +14,7 @@ public class Selectable : MonoBehaviour
             else
                 _elements[i]?.Unselect();
         }
+        _currentIndex = 0;
     }
 
     public void SetElements(Sprite icon, string text, int index)

@@ -15,6 +15,7 @@ public class InteractPresenter : ISubscribable
     GiveItemState _giveItem;
     ChoiceState _choice;
     SelectState _select;
+    SceneTransitionState _sceneTransition;
     FinishState _finish;
     InteractStateMachine _stateMachine = new();
     string _currentInteractor;
@@ -43,6 +44,7 @@ public class InteractPresenter : ISubscribable
         _giveItem = new GiveItemState(_view, this, _runtime);
         _choice = new ChoiceState(_view, this, _runtime);
         _select = new SelectState(_view, this, _runtime);
+        _sceneTransition = new SceneTransitionState(_view, this, _runtime);
         _finish = new FinishState(_view, this, _runtime);
     }
 
@@ -101,6 +103,9 @@ public class InteractPresenter : ISubscribable
                     break;
                 case NodeType.GiveItem:
                     state = _giveItem;
+                    break;
+                case NodeType.SceneTransition:
+                    state = _sceneTransition;
                     break;
                 default:
                     break;

@@ -10,4 +10,5 @@ public enum CharacterType
     Android,
     TrashCan,
     DropItem,
+    SceneTransition
 }
