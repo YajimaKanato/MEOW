@@ -10,7 +10,7 @@ public partial class InteractView
     [SerializeField] InteractWindow _interactWindow;
     [SerializeField] GetItemWindow _getItemWindow;
     [SerializeField] ChoiceUI[] _choices;
-    [SerializeField] SceneTransitionView _sceneTransition;
+    [SerializeField] SceneTransitionFade _sceneTransition;
     Dictionary<CharacterType, Sprite> _spriteDict = new();
     Dictionary<CharacterType, string> _nameDict = new();
     Dictionary<NodeType, Selectable> _selectableDict = new();

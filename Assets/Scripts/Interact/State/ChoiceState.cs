@@ -9,6 +9,7 @@ public class ChoiceState : SelectStateBase
 
     public override void Entry()
     {
+        base.Entry();
         for (int i = 0; i < _choiceLength; i++)
         {
             if (_choices[i] == null) return;

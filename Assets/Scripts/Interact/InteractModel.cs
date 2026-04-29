@@ -7,11 +7,9 @@ public class InteractModel : ScriptableObject
 {
     [SerializeField] Interactables _interactables;
     [SerializeField] ConversationList[] _conversations;
-    [SerializeField] HotbarModel _hotbar;
     [SerializeField] TextSpeed _textSpeed = TextSpeed.Normal;
 
     public Interactables Interactables => _interactables;
     public ConversationList[] Conversations => _conversations;
-    public HotbarModel Hotbar => _hotbar;
     public TextSpeed TextSpeed => _textSpeed;
 }

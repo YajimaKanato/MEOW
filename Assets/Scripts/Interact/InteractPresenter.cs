@@ -80,6 +80,9 @@ public class InteractPresenter : ISubscribable
         if (_runtime.SetTalker(token.CharacterType, out _currentConversation))
         {
             UpdateInteract();
+#if UNITY_EDITOR
+            Debug.Log("Conversation Update");
+#endif
         }
         ChangeState();
         _view?.ActivateBack();
@@ -112,9 +115,12 @@ public class InteractPresenter : ISubscribable
             }
         }
         _stateMachine.ChangeState(state);
+#if UNITY_EDITOR
+        Debug.Log(state);
+#endif
     }
 
-    void UpdateInteract()
+    public void UpdateInteract()
     {
         foreach (var text in _currentConversation.Texts)
         {

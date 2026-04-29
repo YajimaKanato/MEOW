@@ -1,3 +1,4 @@
+using MVPTools.Runtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,7 +25,8 @@ public class SceneTransitionState : InteractStateBase
 
     public override void PushEnter()
     {
-        SceneManager.LoadScene("");
+        if (!RuntimeStorage.TryGetData<InteractableRuntime>(_presenter.CurrentInteractor, out var data)) return;
+        SceneManager.LoadScene(data.SceneName.ToString());
         _presenter.ChangeState();
     }
 
