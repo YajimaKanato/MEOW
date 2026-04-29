@@ -30,6 +30,7 @@ public partial class InteractView : ViewBase
         CloseGetItemWindow();
         CloseChoice();
         CloseInteractWindow();
+        FadeIn();
         if (_back != null) _back.enabled = false;
     }
 

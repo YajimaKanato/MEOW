@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneTransitionState : InteractStateBase
 {
@@ -8,7 +9,7 @@ public class SceneTransitionState : InteractStateBase
 
     public override void Entry()
     {
-
+        _view.SceneTransition(PushEnter);
     }
 
     public override void Exit()
@@ -23,7 +24,8 @@ public class SceneTransitionState : InteractStateBase
 
     public override void PushEnter()
     {
-
+        SceneManager.LoadScene("");
+        _presenter.ChangeState();
     }
 
     public override void SelectIndex(int index)

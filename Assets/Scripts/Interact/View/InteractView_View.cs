@@ -1,3 +1,4 @@
+using DG.Tweening;
 using MVPTools.Runtime;
 using System;
 using System.Collections;
@@ -9,6 +10,7 @@ public partial class InteractView
     [SerializeField] InteractWindow _interactWindow;
     [SerializeField] GetItemWindow _getItemWindow;
     [SerializeField] ChoiceUI[] _choices;
+    [SerializeField] SceneTransitionView _sceneTransition;
     Dictionary<CharacterType, Sprite> _spriteDict = new();
     Dictionary<CharacterType, string> _nameDict = new();
     Dictionary<NodeType, Selectable> _selectableDict = new();
@@ -69,6 +71,16 @@ public partial class InteractView
     {
         InactivateBack();
         _interactWindow?.gameObject?.SetActive(false);
+    }
+
+    public void FadeIn()
+    {
+        _sceneTransition?.FadeIn();
+    }
+
+    public void SceneTransition(TweenCallback act)
+    {
+        _sceneTransition?.SceneTransition(act);
     }
 
     public void GetItem(ItemLabel getItem)
